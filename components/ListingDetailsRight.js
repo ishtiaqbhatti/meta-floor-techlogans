@@ -44,7 +44,7 @@ const ListingDetailsRight = ({ business }) => {
             {vinyalData?.length != 0 && (
               <>
                 <li className="main_category">
-                  Vinyal
+                  Vinyl
                 </li>
                 {vinyalData?.map((item) => {
                   return (
