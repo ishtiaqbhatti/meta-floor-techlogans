@@ -59,12 +59,11 @@ const HomeComponent = () => {
                   <div className="listing-item listing-grid-item-two mb-30">
                     <div className="listing-thumbnail">
                       <Link href={`/listing/${brand.attributes.slug}`}>
-                        <a className="m-5">
+                        <a className="">
                           <Image
                             src={getStrapiMedia(brand.attributes.business_logo)}
                             alt="Listing Image"
-                            width="270px"
-                            height="195px"
+                            width="100%"
                           />
                         </a>
                       </Link>
@@ -161,12 +160,12 @@ const HomeComponent = () => {
                   <div className="listing-item listing-grid-item-two mb-30">
                     <div className="listing-thumbnail">
                       <Link href={`/listing/${brand.attributes.slug}`}>
-                        <a className="m-5">
+                        <a className="">
                           <Image
                             src={getStrapiMedia(brand.attributes.business_logo)}
                             alt="Listing Image"
-                            width="270px"
-                            height="195px"
+                            width="400px"
+                            height="200px"
                           />
                         </a>
                       </Link>
@@ -230,12 +229,12 @@ const HomeComponent = () => {
                   <div className="listing-item listing-grid-item-two mb-30">
                     <div className="listing-thumbnail">
                       <Link href={`/listing/${brand.attributes.slug}`}>
-                        <a className="m-5">
+                        <a className="">
                           <Image
                             src={getStrapiMedia(brand.attributes.business_logo)}
                             alt="Listing Image"
-                            width="270px"
-                            height="195px"
+                            width="400px"
+                            height="200px"
                           />
                         </a>
                       </Link>

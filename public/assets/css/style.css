@@ -3051,7 +3051,7 @@ ul.ratings li {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #bcbcbc;
+  /* background-color: #F4F9F9; */
 }
 
 @media only screen and (min-width: 992px) and (max-width: 1199px) {
@@ -3362,11 +3362,9 @@ h3.title {
 }
 
 .listing-grid-item-two .listing-content {
-  border-radius: 0px 0px 3px 3px;
-  -webkit-box-shadow: 0px 0px 10px 0px rgba(36, 37, 51, 0.08);
-  box-shadow: 0px 0px 10px 0px rgba(36, 37, 51, 0.08);
   background-color: #fff;
-  padding: 20px 30px 25px;
+  padding: 20px 15px 25px;
+  border-radius: 0px 0px 10px 10px;
 }
 
 .listing-grid-item-two .listing-content h3.title {

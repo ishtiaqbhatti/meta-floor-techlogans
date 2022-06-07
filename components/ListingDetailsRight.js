@@ -2,19 +2,110 @@ import React from "react";
 
 const ListingDetailsRight = ({ business }) => {
   console.log("All Business Data", business)
+  const filterCategory = business.attributes.service_categories.data;
+  const hardWoodData = filterCategory && filterCategory?.filter(function (city) {
+    return city.attributes.name.split(' ')[0] === "Hardwood";
+  });
+  const vinyalData = filterCategory && filterCategory?.filter(function (city) {
+    return city.attributes.name.split(' ')[0] === "Vinyl";
+  });
+  const laminateData = filterCategory && filterCategory?.filter(function (city) {
+    return city.attributes.name.split(' ')[0] === "Laminate";
+  });
+  const tileData = filterCategory && filterCategory?.filter(function (city) {
+    return city.attributes.name.split(' ')[0] === "Tile";
+  });
+  const carpetData = filterCategory && filterCategory?.filter(function (city) {
+    return city.attributes.name.split(' ')[0] === "Carpet";
+  });
+  console.log('Filter Category', hardWoodData)
   return (
     <div className="col-lg-4">
       <div className="sidebar-widget-area">
         <div className="widget business-hour-widget reservation-form-widget mb-30 wow fadeInUp">
           <h4 className="widget-title">Services Provide</h4>
           <ul className="time-info">
-            {business.attributes && business.attributes.services.data.map((item) => {
-              return (
-                <li>
-                  {item.attributes.name}
+            {hardWoodData?.length != 0 && (
+              <>
+                <li className="main_category">
+                  Hardwood
                 </li>
-              )
-            })}
+                {hardWoodData?.map((item) => {
+                  return (
+                    <>
+                      <li className="ml-4">
+                        {item.attributes.name}
+                      </li>
+                    </>
+                  )
+                })}
+              </>
+            )}
+            {vinyalData?.length != 0 && (
+              <>
+                <li className="main_category">
+                  Vinyal
+                </li>
+                {vinyalData?.map((item) => {
+                  return (
+                    <>
+                      <li className="ml-4">
+                        {item.attributes.name}
+                      </li>
+                    </>
+                  )
+                })}
+              </>
+            )}
+            {laminateData?.length != 0 && (
+              <>
+                <li className="main_category">
+                  Laminate
+                </li>
+                {laminateData?.map((item) => {
+                  return (
+                    <>
+                      <li className="ml-4">
+                        {item.attributes.name}
+                      </li>
+                    </>
+                  )
+                })}
+              </>
+            )}
+            {tileData?.length != 0 && (
+              <>
+                <li className="main_category">
+                  Tile
+                </li>
+                {tileData?.map((item) => {
+                  return (
+                    <>
+                      <li className="ml-4">
+                        {item.attributes.name}
+                      </li>
+                    </>
+                  )
+                })}
+              </>
+            )}
+            {carpetData?.length != 0 && (
+              <>
+                <li className="main_category" >
+                  Carpet
+                </li>
+                {carpetData?.map((item) => {
+                  return (
+                    <>
+                      <li className="ml-4">
+                        {item.attributes.name}
+                      </li>
+                    </>
+                  )
+                })}
+              </>
+            )}
+
           </ul>
 
         </div>

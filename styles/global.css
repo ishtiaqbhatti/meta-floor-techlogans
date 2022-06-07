@@ -43,6 +43,11 @@ html {
   margin-bottom: 0px;
 }
 
+.listing-item {
+  box-shadow: -1px 4px 10px 8px #F4F9F9 !important;
+  border-radius: 10px;
+}
+
 .c-pointer {
   cursor: pointer;
 }
@@ -244,4 +249,22 @@ img.mfp-img {
 
 .select-search_select {
   position: absolute !important;
+}
+
+.listing-content h3 {
+  font-weight: 900;
+  color: #241B1B;
+}
+
+.loading_section {
+  position: fixed;
+  width: 200px;
+  height: 200px;
+  top: 50%;
+  left: 50%;
+}
+
+.main_category {
+  font-size: 20px;
+  font-weight: 900;
 }

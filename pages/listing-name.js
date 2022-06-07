@@ -9,11 +9,13 @@ import "react-toastify/dist/ReactToastify.css";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import SelectSearch, { fuzzySearch } from 'react-select-search';
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 
 import { getSlug } from "../components/utils";
 import http from "../components/http";
 import { fetchAPI } from '../lib/api';
 import PreLoader from '../components/PreLoader';
+import { Rings } from 'react-loader-spinner'
 
 const AddListing = ({ candaCity }) => {
   const router = useRouter()
@@ -28,6 +30,7 @@ const AddListing = ({ candaCity }) => {
   const [fshowTime, setFshowTime] = useState(true)
   const [sshowTime, setSshowTime] = useState(true)
   const [suhowTime, setSuhowTime] = useState(true)
+  const [loading, setLoading] = useState(false)
   const [selectState, setSelectState] = useState("")
   const [selectcity, setSelectCity] = useState("")
   const [workHours, setWorkHours] = useState({ monday_open_time: "", monday_close_time: "", tuesday_open_time: "", tuesday_close_time: "", wednesday_open_time: "", wednesday_close_time: "", thursday_open_time: "", thursday_close_time: "", friday_open_time: "", friday_close_time: "", saturday_open_time: "", saturday_close_time: "", sunday_open_time: "", sunday_close_time: "" })
@@ -129,6 +132,7 @@ const AddListing = ({ candaCity }) => {
 
   const handleSubmit = async (values) => {
     console.log("SUBMITTING", values)
+    setLoading(true);
 
     const { name, email, contact_email, phone, description, tagline, website } = values;
 
@@ -233,7 +237,17 @@ const AddListing = ({ candaCity }) => {
     }
 
     console.log("DATA", data)
-
+    setLoading(false);
+    router.push('/')
+    toast('Listing Added Sucessfully', {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
     // if (!errorFlag) {
     await http.post('/api/businesses', {
       "data": data
@@ -251,8 +265,7 @@ const AddListing = ({ candaCity }) => {
     // }
     // setLoader(false)
     // if (!errorFlag) {
-    alert("Form Submitted");
-    router.push('/')
+
     // }
   }
 
@@ -461,19 +474,19 @@ const AddListing = ({ candaCity }) => {
                           </label>
                         </div> */}
                     <div className="single-checkbox d-flex">
-                      <input type="checkbox" id="check2" name="checkbox" value="Hardwood" onChange={handleCategory}  />
+                      <input type="checkbox" id="check2" name="checkbox" value="Hardwood" onChange={handleCategory} />
                       <label htmlFor="check2">
                         <span>Hardwood</span>
                       </label>
                     </div>
                     <div className="single-checkbox d-flex">
-                      <input type="checkbox" id="check3" name="checkbox" value="Laminate" onChange={handleCategory}  />
+                      <input type="checkbox" id="check3" name="checkbox" value="Laminate" onChange={handleCategory} />
                       <label htmlFor="check3">
                         <span>Laminate</span>
                       </label>
                     </div>
                     <div className="single-checkbox d-flex">
-                      <input type="checkbox" id="check4" name="checkbox" value="Vinyl" onChange={handleCategory}  />
+                      <input type="checkbox" id="check4" name="checkbox" value="Vinyl" onChange={handleCategory} />
                       <label htmlFor="check4">
                         <span>Vinyl</span>
                       </label>
@@ -485,7 +498,7 @@ const AddListing = ({ candaCity }) => {
                       </label>
                     </div>
                     <div className="single-checkbox d-flex">
-                      <input type="checkbox" id="check6" name="checkbox" value="Carpet" onChange={handleCategory}  />
+                      <input type="checkbox" id="check6" name="checkbox" value="Carpet" onChange={handleCategory} />
                       <label htmlFor="check6">
                         <span>Carpet</span>
                       </label>
@@ -690,7 +703,7 @@ const AddListing = ({ candaCity }) => {
                   </select>
                 </div>
                 <div className="col-lg-3">
-                <select className="form_control" onChange={e => setSelectCity(e.target.value)} required>
+                  <select className="form_control" onChange={e => setSelectCity(e.target.value)} required>
                     <option selected >Select City</option>
                     {cityOptions && cityOptions?.sort().map((city) => {
                       return (
@@ -700,7 +713,7 @@ const AddListing = ({ candaCity }) => {
                       )
                     })}
                   </select>
-                 
+
                 </div>
               </div>
             </div>
@@ -762,7 +775,7 @@ const AddListing = ({ candaCity }) => {
                           <div className="row">
                             <div className="col-lg-6">
                               <label htmlFor="TuesdayOpen">Open Time:</label>
-                              <input type="time"  name="tuesday_open_time" className="time form_control" onChange={handleWorkHours} />
+                              <input type="time" name="tuesday_open_time" className="time form_control" onChange={handleWorkHours} />
                             </div>
                             <div className="col-lg-6">
                               <label htmlFor="TuesdayClose">Close Time:</label>
@@ -857,7 +870,7 @@ const AddListing = ({ candaCity }) => {
                           <div className="row">
                             <div className="col-lg-6 col-12">
                               <label htmlFor="FridayOpen">Open Time:</label>
-                              <input type="time"  id="FridayOpen" name="friday_open_time" className="time form_control" onChange={handleWorkHours} />
+                              <input type="time" id="FridayOpen" name="friday_open_time" className="time form_control" onChange={handleWorkHours} />
                             </div>
                             <div className="col-lg-6 col-12">
                               <label htmlFor="FridayClose">Close Time:</label>
@@ -947,8 +960,16 @@ const AddListing = ({ candaCity }) => {
             </div>
 
           </form>
+
+
         </div>
       </section>
+      <ToastContainer />
+      {loading === true && (
+        <div className="loading_section">
+          <Rings color="#00BFFF" height={130} width={130} />
+        </div>
+      )}
       {/* } */}
     </Layout>
   );
