@@ -15,6 +15,7 @@ import * as Yup from "yup";
 import http from "../../components/http";
 import { Rings } from 'react-loader-spinner'
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+import axios from "axios";
 
 const Name = () => {
   const { query } = useRouter()
@@ -34,7 +35,7 @@ const Name = () => {
     setLoading(true);
 
     const { name, email, message } = values;
-    const slug = getSlug(name)
+    // const slug = getSlug(name)
     const date = new Date().toLocaleDateString();
 
     const data = {
@@ -48,7 +49,7 @@ const Name = () => {
 
     console.log("DATA", data)
     setLoading(false);
-    router.push('/')
+    // router.push('/')
     toast('Review Added Sucessfully', {
       position: "top-right",
       autoClose: 5000,
@@ -59,8 +60,16 @@ const Name = () => {
       progress: undefined,
     });
     // if (!errorFlag) {
+    // await axios.post('/api/business-review', {
+    //   "data": data
+    // })
+    const login = await http.post(`/api/auth/local`, {
+      identifier: "freelance1773@gmail.com",
+      password: "greenland712",
+    })
+    console.log("DATA", data)
     await http.post('/api/business-reviews', {
-      "data": data
+      "data" : data
     }, {
       headers: {
         Authorization: `Bearer ${login.data.jwt}`
