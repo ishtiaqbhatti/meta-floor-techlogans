@@ -1,0 +1,5 @@
+Strapi admin access for view API’s:
+https://floors-app-lz6o6.ondigitalocean.app/admin/auth/login
+info@theflooringmetaverse.com
+
+ASith^7865DSS
