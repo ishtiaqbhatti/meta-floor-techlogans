@@ -62,8 +62,10 @@ const Name = () => {
     //   "data": data
     // })
     const login = await http.post(`/api/auth/local`, {
-      identifier: "freelance1773@gmail.com",
-      password: "greenland712",
+      // identifier: "freelance1773@gmail.com",
+      // password: "greenland712",
+      identifier: process.env.LOGIN_EMAIL,
+      password: process.env.LOGIN_PASSWORD,
     })
     console.log("DATA", data)
     await http.post('/api/business-reviews', {

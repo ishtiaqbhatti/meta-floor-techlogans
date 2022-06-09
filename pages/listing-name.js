@@ -199,13 +199,13 @@ const AddListing = ({ candaCity }) => {
     const formData = new FormData();
     formData.append("files", image);
     const login = await http.post(`/api/auth/local`, {
-      identifier: "freelance1773@gmail.com",
-      password: "greenland712",
+      identifier: process.env.LOGIN_EMAIL,
+      password: process.env.LOGIN_PASSWORD,
     })
     await http.post('/api/upload', formData, {
-      headers: {
-        Authorization: `Bearer ${login.data.jwt}`
-      }
+      // headers: {
+      //   Authorization: `Bearer ${login.data.jwt}`
+      // }
     })
       .then(response => {
         imageID = response.data[0].id
@@ -251,11 +251,13 @@ const AddListing = ({ candaCity }) => {
     // if (!errorFlag) {
     await http.post('/api/businesses', {
       "data": data
-    }, {
-      headers: {
-        Authorization: `Bearer ${login.data.jwt}`
-      }
-    })
+    },
+      // {
+      //   headers: {
+      //     Authorization: `Bearer ${login.data.jwt}`
+      //   }
+      // }
+    )
     // .catch((error) => {
     //   setLoader(false)
     //   errorFlag = true
@@ -693,6 +695,7 @@ const AddListing = ({ candaCity }) => {
                 <div className="col-lg-3">
                   <select className="form_control" onChange={e => setSelectState(e.target.value)} required>
                     <option selected >Select State</option>
+                    <option value="Canada State" >Canada State</option>
                     {uniqueCities && uniqueCities?.sort().map((state) => {
                       return (
                         <>
@@ -705,6 +708,7 @@ const AddListing = ({ candaCity }) => {
                 <div className="col-lg-3">
                   <select className="form_control" onChange={e => setSelectCity(e.target.value)} required>
                     <option selected >Select City</option>
+                    <option value="Canda City" >Canda City</option>
                     {cityOptions && cityOptions?.sort().map((city) => {
                       return (
                         <>
