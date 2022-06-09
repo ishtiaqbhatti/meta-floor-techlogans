@@ -25,7 +25,7 @@ const Name = () => {
   const [loading, setLoading] = useState(false)
 
   const actualRating = rating / 20;
-  console.log("rating", allReviews)
+  // console.log("rating", allReviews)
 
   const handleRating = (rate) => {
     setRating(rate)
@@ -35,7 +35,6 @@ const Name = () => {
     setLoading(true);
 
     const { name, email, message } = values;
-    // const slug = getSlug(name)
     const date = new Date().toLocaleDateString();
 
     const data = {
@@ -49,7 +48,6 @@ const Name = () => {
 
     console.log("DATA", data)
     setLoading(false);
-    // router.push('/')
     toast('Review Added Sucessfully', {
       position: "top-right",
       autoClose: 5000,
@@ -69,7 +67,7 @@ const Name = () => {
     })
     console.log("DATA", data)
     await http.post('/api/business-reviews', {
-      "data" : data
+      "data": data
     }, {
       headers: {
         Authorization: `Bearer ${login.data.jwt}`

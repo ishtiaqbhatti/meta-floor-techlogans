@@ -16,12 +16,13 @@ import SearchIcon from "@mui/icons-material/Search";
 
 import { fetchAPI } from "../../lib/api";
 import { getSlug } from "../utils";
+import MainSearch from "./mainSearch";
 
 const MobileMenu = ({ category, cityInfo, setInfo }) => {
   const [toggle, setToggle] = useState(false);
   const [activeMenu, setActiveMenu] = useState("");
   const activeMenuSet = (value) =>
-      setActiveMenu(activeMenu === value ? "" : value),
+    setActiveMenu(activeMenu === value ? "" : value),
     activeLi = (value) =>
       value === activeMenu ? { display: "block" } : { display: "none" };
   const router = useRouter();
@@ -186,51 +187,9 @@ const MobileMenu = ({ category, cityInfo, setInfo }) => {
           </div>
         </div>
       </div>
-      <div className="header-top">
-        <div className="container-fluid">
-          <div
-            className="hero-search-wrapper wow fadeInUp"
-            wow-data-delay="70ms"
-          >
-            <form onSubmit={getDeliveryUrl}>
-              <div className="row">
-                <div className="col-lg-9 col-md-12 col-sm-12 m-3">
-                  <div className="d-flex justify-content-around align-content-center align-items-center">
-                    <strong className="mx-4">Browsing Services For: </strong>
-                    <div
-                      className="form_group justify-content-center align-items-center"
-                      style={{ width: "50%" }}
-                    >
-                      <i style={{ zIndex: 1 }}>
-                        <RoomIcon />
-                      </i>
-                      <input
-                        type="text"
-                        className="form_control"
-                        placeholder="City Name"
-                        name="location"
-                        required
-                      />
-                    </div>
-                    <input
-                      type="submit"
-                      value="Search"
-                      className="btn-root register-btn mx-1"
-                    />
-                  </div>
-                </div>
-                <div className="col-lg-2 col-md-12 col-sm-12 mt-4">
-                  <div className="d-flex justify-content-around align-content-center align-items-center">
-                    <Link href="/listing-name">
-                      <a className="btn-root login-btn">+ ADD LISTING</a>
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
+
+      <MainSearch />
+
     </header>
   );
 };

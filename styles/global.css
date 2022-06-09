@@ -268,3 +268,29 @@ img.mfp-img {
   font-size: 20px;
   font-weight: 900;
 }
+
+@media screen and (max-width:768px) {
+  .top_deliveries {
+    width: 18px !important;
+    height: 33px !important;
+    padding: 0px !important
+  }
+
+  .inner_text {
+    margin-top: -5rem !important;
+    margin-bottom: 3rem;
+    padding-top: 2rem;
+  }
+
+}
+
+.text_section {
+  display: flex;
+  justify-content: center;
+}
+
+.inner_text {
+  width: 100%;
+  height: 100%;
+  margin-top: 7rem;
+}

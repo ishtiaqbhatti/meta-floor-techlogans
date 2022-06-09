@@ -165,15 +165,57 @@ body {
 }
 
 .MuiTypography-h1 {
-  font-family: "Lato", "Roboto", "Helvetica", "Arial", sans-serif;
+  font-family: "Lato", sans-serif;
   color: #ffffff;
   width: 100%;
   font-size: 38pt;
   margin-top: 40px;
   font-weight: 600;
   line-height: 1.1;
-  /* margin-left: 80px; */
-  text-shadow: 2px 2px #4e652e;
+  margin-left: 50px;
+  /* text-shadow: 2px 2px #4e652e; */
+}
+
+@media screen and (max-width:768px) {
+  .MuiTypography-h1 {
+    font-family: "Lato", sans-serif;
+    color: #ffffff;
+    width: 100%;
+    font-size: 32pt;
+    margin-top: 40px;
+    font-weight: 600;
+    line-height: 1.1;
+    width: 100% !important;
+    margin: 0px 10px;
+  }
+
+  .MuiTypography-h2 {
+    font-family: "Lato", sans-serif;
+    color: #ffffff;
+    width: 100%;
+    font-size: 15pt !important;
+    margin-top: 40px;
+    font-weight: 600;
+    line-height: 1.1;
+    width: 100% !important;
+    margin: 0px 10px;
+  }
+
+  .MuiTypography-body {
+    font-size: 18pt !important;
+  }
+}
+
+.MuiTypography-h2 {
+  font-family: "Lato", sans-serif;
+  color: #0d0d0d;
+  width: 100%;
+  font-size: 32pt;
+  margin-top: 40px;
+  font-weight: 600;
+  line-height: 1.1;
+  width: 100% !important;
+  margin: 0px 10px;
 }
 
 .MuiTypography-body1 {
@@ -184,7 +226,7 @@ body {
 }
 
 .MuiTypography-body {
-  color: #646262a7;
+  color: #0d0d0d;
   width: 100%;
   font-size: 38px;
   margin-top: 40px;
@@ -192,7 +234,6 @@ body {
   font-weight: 600;
   line-height: 1.1;
   /* margin-left: 80px; */
-  text-shadow: 2px 2px #4e652e;
 }
 
 .MuiTypography-alignLeft {
@@ -1488,6 +1529,9 @@ ul.ratings.ratings-one li.star:nth-child(1) i,
 /* Hero Common css */
 .home-header {
   height: 400px;
+  background: url("../images/banner_bg-image_1.jpg");
+  background-position: center;
+  background-size: cover;
   display: flex !important;
   position: relative;
   align-items: center;

@@ -32,7 +32,7 @@ const ServiceTemplate = ({ category, }) => {
             </Breadcrumb.Item>
             <Breadcrumb.Item >
               <Link href="/ca">
-                States
+                Province
               </Link>
             </Breadcrumb.Item>
             <Breadcrumb.Item  >

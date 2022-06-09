@@ -20,33 +20,33 @@ const PageBanner = ({ category }) => {
     setService(serviceUrl);
   });
   return (
-    <section className="hero-area">
-      <div
-        className="breadcrumbs-wrapper"
-        style={{
-          background: `url(/assets/images/flooring-banner.jpg) no-repeat center`,
-          backgroundSize: "cover",
-        }}
-      >
-        <div className="container">
-          <div className="row">
-            <div className="col-lg-12">
-              <div className="page-title">
-                <h1 className="MuiTypography-root MuiTypography-h1">
-                  {category} in {location}
-                </h1>
+    <>
+      <section className="hero-area">
+        <div
+          className="home-header"
+        >
+          <div className="container">
+            <div className="row">
+              <div className="col-lg-12">
+                <div className="page-title">
+                  <h1 className="MuiTypography-root MuiTypography-h1 ml-0">
+                    {category} in {location}
+                  </h1>
+                </div>
               </div>
             </div>
           </div>
         </div>
+      </section>
+      <div className="container py-1">
+        <h4 className="MuiTypography-body w-100 ml-0">
+          Find the best local {" "}
+          <b style={{ color: "#19B5BC" }}>
+            {category} in {location}, {state}
+          </b>
+        </h4>
       </div>
-      <h4 className="MuiTypography-body mt-4 mx-4">
-        Find the best local {" "}
-        <strong style={{ color: "green" }}>
-          {category} in {location}, {state}
-        </strong>
-      </h4>
-    </section>
+    </>
   );
 };
 export default PageBanner;

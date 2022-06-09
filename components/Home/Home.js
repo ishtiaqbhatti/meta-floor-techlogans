@@ -42,11 +42,11 @@ const HomeComponent = () => {
               alt="top-deliveries"
               width="100%"
               height="100%"
+              className="top_deliveries"
             />
             <div style={{ display: "flex", flexWrap: "wrap" }}>
               <h2 className="MuiTypography-root MuiTypography-h2">
-                <span className="delivery-cat">TOP </span>&nbsp;
-                <span className="delivery-text">Flooring Brands</span>
+                TOP Flooring Brands
               </h2>
             </div>
           </div>
@@ -67,32 +67,7 @@ const HomeComponent = () => {
                           />
                         </a>
                       </Link>
-                      {/* <a href="#" className="cat-btn">
-                        <i className="flaticon-chef" />
-                      </a>
-                      <span className="featured-btn">Featured</span>
-                      <ul className="ratings ratings-five">
-                        <li className="star">
-                          <i className="flaticon-star-1" />
-                        </li>
-                        <li className="star">
-                          <i className="flaticon-star-1" />
-                        </li>
-                        <li className="star">
-                          <i className="flaticon-star-1" />
-                        </li>
-                        <li className="star">
-                          <i className="flaticon-star-1" />
-                        </li>
-                        <li className="star">
-                          <i className="flaticon-star-1" />
-                        </li>
-                        <li>
-                          <span>
-                            <a href="#">(01 Reviews)</a>
-                          </span>
-                        </li>
-                      </ul> */}
+
                     </div>
                     <div className="listing-content">
                       <h3 className="title">
@@ -107,7 +82,7 @@ const HomeComponent = () => {
                             {brand.attributes.phone_number}
                           </a>
                         )}
-                        {/* <span className="status st-open">Open</span> */}
+
                       </span>
                       <div className="listing-meta">
                         <ul>
@@ -118,12 +93,7 @@ const HomeComponent = () => {
                               , CANADA
                             </span>
                           </li>
-                          {/* <li>
-                            <span>
-                              <i className="ti-heart" />
-                              <a href="#">Save</a>
-                            </span>
-                          </li> */}
+
                         </ul>
                       </div>
                     </div>
@@ -142,12 +112,9 @@ const HomeComponent = () => {
               width="100%"
               height="100%"
             />
-            <div style={{ display: "flex", flexWrap: "wrap" }}>
+            <div >
               <h2 className="MuiTypography-root MuiTypography-h2">
-                <span className="delivery-cat">Top</span>&nbsp;
-                <span className="delivery-text">
-                  Services / Contractors from that location
-                </span>
+                Top Services / Contractors from that location
               </h2>
             </div>
           </div>
@@ -213,10 +180,7 @@ const HomeComponent = () => {
             />
             <div style={{ display: "flex", flexWrap: "wrap" }}>
               <h2 className="MuiTypography-root MuiTypography-h2">
-                <span className="delivery-cat">Everything </span>&nbsp;
-                <span className="delivery-text">
-                  you need for your floors and more
-                </span>
+                Everything you need for your floors and more
               </h2>
             </div>
           </div>
