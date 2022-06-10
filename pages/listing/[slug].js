@@ -16,6 +16,7 @@ import http from "../../components/http";
 import { Rings } from 'react-loader-spinner'
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import axios from "axios";
+import dateFormat from "dateformat";
 
 const Name = () => {
   const { query } = useRouter()
@@ -25,23 +26,26 @@ const Name = () => {
   const [loading, setLoading] = useState(false)
 
   const actualRating = rating / 20;
-  // console.log("rating", allReviews)
+  console.log("rating", allReviews.data)
 
   const handleRating = (rate) => {
     setRating(rate)
   }
-  const handleSubmit = async (values) => {
+
+  function formatMyDate(value, locale = 'en-GB') {
+    return new Date(value).toLocaleDateString(locale);
+  }
+  const handleSubmit = async (values, { resetForm }) => {
     console.log("SUBMITTING", values)
     setLoading(true);
 
     const { name, email, message } = values;
-    const date = new Date().toLocaleDateString();
 
     const data = {
       "Name": name,
       "Email": email,
       "Message": message,
-      "date": date,
+      // "date": formatMyDate(date),
       "bussiness_id": business?.id,
       "rating": actualRating,
     }
@@ -62,10 +66,10 @@ const Name = () => {
     //   "data": data
     // })
     const login = await http.post(`/api/auth/local`, {
-      // identifier: "freelance1773@gmail.com",
-      // password: "greenland712",
-      identifier: process.env.LOGIN_EMAIL,
-      password: process.env.LOGIN_PASSWORD,
+      identifier: "freelance1773@gmail.com",
+      password: "greenland712",
+      // identifier: process.env.LOGIN_EMAIL_PROD,
+      // password: process.env.LOGIN_PASSWORD_PROD,
     })
     console.log("DATA", data)
     await http.post('/api/business-reviews', {
@@ -75,6 +79,8 @@ const Name = () => {
         Authorization: `Bearer ${login.data.jwt}`
       }
     })
+
+    resetForm();
   }
 
   useEffect(() => {
@@ -86,6 +92,15 @@ const Name = () => {
         populate: "*",
       });
       setBusiness(businessesRes.data[0]);
+    })();
+
+  }, []);
+  useEffect(() => {
+    (async () => {
+      const reviewRes = await fetchAPI("/business-reviews", {
+        populate: "*",
+      });
+      setAllReviews(reviewRes);
     })();
   }, []);
 
@@ -111,7 +126,6 @@ const Name = () => {
     name: "",
     email: "",
     message: "",
-
   };
 
   const formik = useFormik({
@@ -272,122 +286,123 @@ const Name = () => {
                               <div className="products-review-wrapper mb-25">
                                 <div className="products-review-area mb-45">
                                   <ul className="review-list">
-                                    <li className="review">
-                                      <div className="review-thumb">
-                                        <img
-                                          src="/assets/images/products/review-thumb-1.jpg"
-                                          alt="review thumb"
-                                        />
-                                      </div>
-                                      <div className="review-content">
-                                        <h4>John F. Medina</h4>
-                                        <span className="date">25 May 2021</span>
-                                        <ul className="ratings ratings-four">
-                                          <li className="star">
-                                            <i className="flaticon-star-1" />
-                                          </li>
-                                          <li className="star">
-                                            <i className="flaticon-star-1" />
-                                          </li>
-                                          <li className="star">
-                                            <i className="flaticon-star-1" />
-                                          </li>
-                                          <li className="star">
-                                            <i className="flaticon-star-1" />
-                                          </li>
-                                          <li className="star">
-                                            <i className="flaticon-star-1" />
-                                          </li>
-                                        </ul>
-                                        <p>
-                                          Sed ut perspiciatis unde omnis iste
-                                          natus error sit voluptatem accusantium
-                                          doloremque laudantium, totam rem
-                                          aperiam, eaque ipsa quae ab illo
-                                          inventore veritatis et quasi architecto
-                                          beatae vitae dicta sunt explicabo.
-                                        </p>
 
-                                      </div>
-                                    </li>
+                                    {allReviews.data.length != 0 && (
+                                      <>
+                                        {allReviews.data?.map((review) => {
+                                          return (
+                                            <>
+                                              <li className="review">
+                                                <div className="review-thumb">
+                                                  <img
+                                                    src="/assets/images/avatar.png"
+                                                    alt="review thumb"
+                                                  />
+                                                </div>
+                                                <div className="review-content">
+                                                  <h4>{review?.attributes?.Name}</h4>
+                                                  <span className="date">
+                                                    {dateFormat(review?.attributes?.createdAt, "dd, mmmm, yyyy")}
+                                                  </span>
+
+                                                  <p>
+                                                    {review?.attributes?.Message}
+                                                  </p>
+
+                                                </div>
+                                              </li>
+                                            </>
+                                          )
+                                        })}
+
+                                      </>
+                                    )}
+
 
                                   </ul>
                                 </div>
                                 <div className="products-review-form">
                                   <h4 className="title">Leave Your Reviews</h4>
-                                  <form onSubmit={formik.handleSubmit}>
-                                    <div className="row">
-                                      <div className="col-lg-12">
-                                        <div className="form_group">
-                                          <ul className="ratings mb-20">
-                                            <li>
-                                              <span>Your Rating</span>
-                                            </li>
-                                            <Rating onClick={handleRating} ratingValue={rating} />
-                                          </ul>
-                                        </div>
-                                      </div>
-                                      <div className="col-lg-6">
-                                        <div className="form_group">
-                                          <input
-                                            type="text"
-                                            className="form_control"
-                                            placeholder="Full Name"
-                                            name="name"
-                                            autoComplete="off"
-                                            onChange={formik.handleChange}
-                                            onBlur={formik.handleBlur}
-                                            value={formik.values.name}
-                                            required
-                                          />
-                                        </div>
-                                        {formik.touched.name && formik.errors.name ? (
-                                          <div className="error">{formik.errors.name}</div>
-                                        ) : null}
-                                      </div>
-                                      <div className="col-lg-6">
-                                        <div className="form_group">
-                                          <input
-                                            type="email"
-                                            className="form_control"
-                                            placeholder="Email Address"
-                                            name="email"
-                                            onChange={formik.handleChange}
-                                            onBlur={formik.handleBlur}
-                                            value={formik.values.email}
-                                            required
-                                          />
-                                        </div>
-                                        {formik.touched.email && formik.errors.email ? (
-                                          <div className="error">{formik.errors.email}</div>
-                                        ) : null}
-                                      </div>
-                                      <div className="col-lg-12">
-                                        <div className="form_group">
-                                          <textarea
-                                            className="form_control"
-                                            placeholder="Write Message"
-                                            name="message"
-                                            autoComplete="off"
-                                            onChange={formik.handleChange}
-                                            onBlur={formik.handleBlur}
-                                            value={formik.values.message}
-                                            required
-                                          />
-                                        </div>
-                                        {formik.touched.message && formik.errors.message ? (
-                                          <div className="error">{formik.errors.message}</div>
-                                        ) : null}
-                                      </div>
-                                      <div className="col-lg-12">
-                                        <div className="form_group">
-                                          <button className="main-btn" type="submit">
-                                            Submit
-                                          </button>
-                                        </div>
-                                      </div>
+                                  {loading === true ? (
+                                    <div className="loading_section">
+                                      <Rings color="#00BFFF" height={130} width={130} />
                                     </div>
-                                  </form>
+                                  ) : (
+                                    <form onSubmit={formik.handleSubmit}>
+                                      <div className="row">
+                                        <div className="col-lg-12">
+                                          <div className="form_group">
+                                            <ul className="ratings mb-20">
+                                              <li>
+                                                <span>Your Rating</span>
+                                              </li>
+                                              <Rating onClick={handleRating} ratingValue={rating} />
+                                            </ul>
+                                          </div>
+                                        </div>
+                                        <div className="col-lg-6">
+                                          <div className="form_group">
+                                            <input
+                                              type="text"
+                                              className="form_control"
+                                              placeholder="Full Name"
+                                              name="name"
+                                              autoComplete="off"
+                                              onChange={formik.handleChange}
+                                              onBlur={formik.handleBlur}
+                                              value={formik.values.name}
+                                              required
+                                            />
+                                          </div>
+                                          {formik.touched.name && formik.errors.name ? (
+                                            <div className="error">{formik.errors.name}</div>
+                                          ) : null}
+                                        </div>
+                                        <div className="col-lg-6">
+                                          <div className="form_group">
+                                            <input
+                                              type="email"
+                                              className="form_control"
+                                              placeholder="Email Address"
+                                              name="email"
+                                              onChange={formik.handleChange}
+                                              onBlur={formik.handleBlur}
+                                              value={formik.values.email}
+                                              required
+                                            />
+                                          </div>
+                                          {formik.touched.email && formik.errors.email ? (
+                                            <div className="error">{formik.errors.email}</div>
+                                          ) : null}
+                                        </div>
+                                        <div className="col-lg-12">
+                                          <div className="form_group">
+                                            <textarea
+                                              className="form_control"
+                                              placeholder="Write Message"
+                                              name="message"
+                                              autoComplete="off"
+                                              onChange={formik.handleChange}
+                                              onBlur={formik.handleBlur}
+                                              value={formik.values.message}
+                                              required
+                                            />
+                                          </div>
+                                          {formik.touched.message && formik.errors.message ? (
+                                            <div className="error">{formik.errors.message}</div>
+                                          ) : null}
+                                        </div>
+                                        <div className="col-lg-12">
+                                          <div className="form_group">
+                                            <button className="main-btn" type="submit">
+                                              Submit
+                                            </button>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </form>
+                                  )}
+
                                 </div>
                               </div>
                             </Tab.Pane>
@@ -401,11 +416,7 @@ const Name = () => {
             </div>
           </div>
           <ToastContainer />
-          {loading === true && (
-            <div className="loading_section">
-              <Rings color="#00BFFF" height={130} width={130} />
-            </div>
-          )}
+
         </section>
       }
     </Layout>

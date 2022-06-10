@@ -130,7 +130,7 @@ const AddListing = ({ candaCity }) => {
     output.src = URL.createObjectURL(e.target.files[0]);
   }
 
-  const handleSubmit = async (values) => {
+  const handleSubmit = async (values, { resetForm }) => {
     console.log("SUBMITTING", values)
     setLoading(true);
 
@@ -199,13 +199,17 @@ const AddListing = ({ candaCity }) => {
     const formData = new FormData();
     formData.append("files", image);
     const login = await http.post(`/api/auth/local`, {
-      identifier: process.env.LOGIN_EMAIL,
-      password: process.env.LOGIN_PASSWORD,
+      identifier: "freelance1773@gmail.com",
+      password: "greenland712",
     })
+    // const loginData = await http.post(`/api/auth/local`, {
+    //   identifier: process.env.LOGIN_EMAIL || "info@theflooringmetaverse.com",
+    //   password: process.env.LOGIN_PASSWORD || "test@123",
+    // })
     await http.post('/api/upload', formData, {
-      // headers: {
-      //   Authorization: `Bearer ${login.data.jwt}`
-      // }
+      headers: {
+        Authorization: `Bearer ${login.data.jwt}`
+      }
     })
       .then(response => {
         imageID = response.data[0].id
@@ -252,11 +256,11 @@ const AddListing = ({ candaCity }) => {
     await http.post('/api/businesses', {
       "data": data
     },
-      // {
-      //   headers: {
-      //     Authorization: `Bearer ${login.data.jwt}`
-      //   }
-      // }
+      {
+        headers: {
+          Authorization: `Bearer ${login.data.jwt}`
+        }
+      }
     )
     // .catch((error) => {
     //   setLoader(false)
@@ -269,6 +273,7 @@ const AddListing = ({ candaCity }) => {
     // if (!errorFlag) {
 
     // }
+    resetForm
   }
 
   const validationSchema = Yup.object({
