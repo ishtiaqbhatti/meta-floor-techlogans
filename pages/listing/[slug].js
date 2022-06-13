@@ -17,6 +17,8 @@ import { Rings } from 'react-loader-spinner'
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import axios from "axios";
 import dateFormat from "dateformat";
+// import { DynamicStar } from 'react-dynamic-star';
+import { AiTwotoneStar, AiOutlineStar } from 'react-icons/ai'
 
 const Name = () => {
   const { query } = useRouter()
@@ -31,6 +33,7 @@ const Name = () => {
   const handleRating = (rate) => {
     setRating(rate)
   }
+
 
   function formatMyDate(value, locale = 'en-GB') {
     return new Date(value).toLocaleDateString(locale);
@@ -137,6 +140,10 @@ const Name = () => {
     // validate,
     validationSchema,
   });
+
+
+
+
 
   return (
     <Layout>
@@ -287,9 +294,11 @@ const Name = () => {
                                 <div className="products-review-area mb-45">
                                   <ul className="review-list">
 
-                                    {allReviews.data.length != 0 && (
+                                    {allReviews?.data?.length != 0 && (
                                       <>
                                         {allReviews.data?.map((review) => {
+                                          const totalStars = 5;
+                                          const activeStars = review?.attributes?.rating;
                                           return (
                                             <>
                                               <li className="review">
@@ -301,9 +310,17 @@ const Name = () => {
                                                 </div>
                                                 <div className="review-content">
                                                   <h4>{review?.attributes?.Name}</h4>
-                                                  <span className="date">
+                                                  {[...new Array(totalStars)].map((arr, index) => {
+                                                    return index < activeStars ? <span className="active_star">
+                                                      <AiTwotoneStar />
+                                                    </span> : <AiOutlineStar />;
+                                                  })}
+
+                                                  {/* <Rating ratingValue={review?.attributes?.rating} /> */}
+                                                  {/* <DynamicStar rating={review?.attributes?.rating} outlined /> */}
+                                                  <p className="date">
                                                     {dateFormat(review?.attributes?.createdAt, "dd, mmmm, yyyy")}
-                                                  </span>
+                                                  </p>
 
                                                   <p>
                                                     {review?.attributes?.Message}

@@ -6616,3 +6616,23 @@ Delivery
   margin-top: 12px;
   font-weight: 600
 }
+
+
+.active_star {
+  color: #FFBC00;
+}
+
+
+/* for rating stars */
+.dynamic-star-rating {
+  display: flex;
+  align-items: center
+}
+
+.dynamic-star-container {
+  display: flex
+}
+
+.dynamic-star-container:not(:last-child) {
+  margin-right: 5px
+}
