@@ -17,6 +17,10 @@ import { Rings } from 'react-loader-spinner'
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import axios from "axios";
 import dateFormat from "dateformat";
+import qs from 'qs';
+
+
+
 
 const Name = () => {
   const { query } = useRouter()
@@ -24,8 +28,10 @@ const Name = () => {
   const [allReviews, setAllReviews] = useState("")
   const [rating, setRating] = useState(0)
   const [loading, setLoading] = useState(false)
+  const router = useRouter()
 
   const actualRating = rating / 20;
+  console.log("ACTUAL RATING");
   console.log("rating", allReviews.data)
 
   const handleRating = (rate) => {
@@ -46,21 +52,13 @@ const Name = () => {
       "Email": email,
       "Message": message,
       // "date": formatMyDate(date),
-      "bussiness_id": business?.id,
+      "business": business?.id,
       "rating": actualRating,
     }
 
     console.log("DATA", data)
-    setLoading(false);
-    toast('Review Added Sucessfully', {
-      position: "top-right",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    });
+   
+  
     // if (!errorFlag) {
     // await axios.post('/api/business-review', {
     //   "data": data
@@ -79,8 +77,18 @@ const Name = () => {
         Authorization: `Bearer ${login.data.jwt}`
       }
     })
-
+    setLoading(false);
+    toast('Review Added Sucessfully', {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
     resetForm();
+    router.reload(window.location.pathname)
   }
 
   useEffect(() => {
@@ -91,18 +99,26 @@ const Name = () => {
         },
         populate: "*",
       });
-      setBusiness(businessesRes.data[0]);
+      
+      // console.log("BUSINESS", business)
+      if(businessesRes?.data[0]) {
+        setBusiness(businessesRes.data[0]);
+        
+        (async () => {
+          const reviewRes = await fetchAPI(`/business-reviews`, {
+            filters: {
+              business: businessesRes.data[0].id
+            },
+            populate: "*",
+          });
+          setAllReviews(reviewRes);
+        })();
+      }
+
     })();
 
   }, []);
-  useEffect(() => {
-    (async () => {
-      const reviewRes = await fetchAPI("/business-reviews", {
-        populate: "*",
-      });
-      setAllReviews(reviewRes);
-    })();
-  }, []);
+
 
   // useEffect(() => {
   //   (async () => {
@@ -287,7 +303,7 @@ const Name = () => {
                                 <div className="products-review-area mb-45">
                                   <ul className="review-list">
 
-                                    {allReviews.data.length != 0 && (
+                                    {allReviews?.data?.length != 0 && (
                                       <>
                                         {allReviews.data?.map((review) => {
                                           return (
@@ -323,7 +339,7 @@ const Name = () => {
                                 </div>
                                 <div className="products-review-form">
                                   <h4 className="title">Leave Your Reviews</h4>
-                                  {loading === true ? (
+                                  {loading ? (
                                     <div className="loading_section">
                                       <Rings color="#00BFFF" height={130} width={130} />
                                     </div>
