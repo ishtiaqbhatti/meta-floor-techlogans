@@ -71,8 +71,11 @@ const CityState = () => {
             <div className="ca_location py-5">
                 <div className="container">
                     <h2 className="main_heading text-center">
-                        All Cities Of the {stateName}
+                        All Cities Of the {filterState[0]?.attributes?.province_name}
                     </h2>
+                    <p className="main_title_intro">
+                        Pick your closest location to find flooring services and supplies anywhere in {filterState[0]?.attributes?.province_name}. There are professional flooring contractors ready to serve you, as well as flooring stores which have a large selection of products to suit your needs.
+                    </p>
                     <div className="row my-3">
                         {filterState && filterState.map((city) => {
                             return (

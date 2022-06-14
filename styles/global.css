@@ -179,6 +179,21 @@ img.mfp-img {
 .banner_location h2,
 .banner_location p {
   color: #fff !important;
+  font-size: 1.5em;
+}
+
+.listing_footer {
+  text-align: center;
+  font-size: 17px;
+  color: #19b5bc;
+  font-weight: 400;
+}
+
+.mobile_menu .login-btn {
+  color: #fff !important;
+  border-radius: 10px !important;
+  width: 150px;
+  margin: auto;
 }
 
 .main_heading {
@@ -293,4 +308,13 @@ img.mfp-img {
   width: 100%;
   height: 100%;
   margin-top: 7rem;
+}
+
+.main_title_intro {
+  font-size: 16px;
+  font-weight: 400;
+  color: #19b5bc;
+  letter-spacing: 1.6px;
+  color: #241B1B;
+  font-family: "Lato", Sans-serif;
 }

@@ -11,6 +11,7 @@ const HomeComponent = () => {
   const [topBusinesses, setTopBusinesses] = useState("");
   const [topBrands, setTopBrands] = useState("");
   const [businesses, setBusinesses] = useState("");
+
   useEffect(() => {
     (async () => {
       const businesses = await fetchAPI("/businesses", {

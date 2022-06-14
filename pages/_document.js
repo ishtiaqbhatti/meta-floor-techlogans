@@ -11,6 +11,7 @@ class MyDocument extends Document {
             rel="stylesheet"
           />
           {/* <link
+
             rel="stylesheet"
             href="https://fonts.googleapis.com/css?family=Staatliches"
           /> */}
@@ -34,10 +35,11 @@ class MyDocument extends Document {
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBpK2K9D5QfMMiTVdsgz9cSjoKcXmhRsOo&libraries=places&v=weekly"
             defer
           />
-          <script 
+          <script
             async
-            src="https://polyfill.io/v3/polyfill.min.js?features=default" 
+            src="https://polyfill.io/v3/polyfill.min.js?features=default"
           />
+          <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0126348283882958" />
         </Head>
         <body>
           <Main />

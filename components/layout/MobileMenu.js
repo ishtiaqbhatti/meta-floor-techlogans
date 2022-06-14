@@ -155,7 +155,15 @@ const MobileMenu = ({ category, cityInfo, setInfo }) => {
                         </span>
                       </li>
                       <Brands cityInfo={cityInfo} />
-                      <Blog />
+                      {/* <Blog /> */}
+                      <li className="menu-item has-children">
+                        <div className="mr-5 mt-1 mobile_menu">
+                          <Link href="/listing-name">
+                            <a className="btn-root login-btn">+ ADD LISTING</a>
+                          </Link>
+                        </div>
+                      </li>
+
                     </ul>
                   </nav>
                 </div>
