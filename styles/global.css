@@ -318,3 +318,10 @@ img.mfp-img {
   color: #241B1B;
   font-family: "Lato", Sans-serif;
 }
+
+.top_listing_busniess h3 {
+  color: #0d0d0d;
+  margin-bottom: 1.5rem;
+  font-family: 'Lato', sans-serif;
+  font-weight: 500;
+}

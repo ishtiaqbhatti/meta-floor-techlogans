@@ -4,8 +4,7 @@ import Link from 'next/link'
 import { Breadcrumb } from 'react-bootstrap'
 import { useRouter } from 'next/router'
 import { fetchAPI } from "../../../lib/api";
-import { Image } from "next/image";
-import { Head } from "next/head";
+// import { Head } from "next/head";
 import qs from 'qs'
 
 const Citylocation = () => {
@@ -55,9 +54,9 @@ const Citylocation = () => {
 
     return (
         <>
-            <Head>
+            {/* <Head>
                 <meta property="title" content={`Find Top-Rated Flooring Services in ${cityName},${query.state} - Flooring Metaverse`} key="title" />
-            </Head>
+            </Head> */}
             <Layout>
                 <div className="bread">
                     <div className="container">
@@ -224,7 +223,7 @@ const Citylocation = () => {
                 </div>
                 <div className="container py-5">
 
-                    {filterCity.length == 0 ?
+                    {filterCity?.length == 0 ?
                         <p className="filter_business text-center">We apologize, we haven’t
                             added any brands for your area quite yet. Please let your
                             local business owners know to add themselves for FREE.
@@ -244,8 +243,8 @@ const Citylocation = () => {
                                                         <div className="listing-thumbnail">
                                                             <Link href={`/listing/${brand.attributes.slug}`}>
                                                                 <a className="">
-                                                                    <Image
-                                                                        src={getStrapiMedia(brand.attributes.business_logo)}
+                                                                    <img
+                                                                        src={brand.attributes.business_logo?.data?.attributes?.url}
                                                                         alt="Listing Image"
                                                                         width="400px"
                                                                         height="200px"
@@ -284,10 +283,7 @@ const Citylocation = () => {
                                             );
                                         })}
                                 </div>
-
-
                             </>
-
                         )}
 
                 </div>
