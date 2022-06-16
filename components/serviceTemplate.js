@@ -8,6 +8,8 @@ import ServiceTemplateFooter from './serviceTemplateFooter'
 import { toCamelCase } from "./utils"
 import { useRouter } from 'next/router'
 import { fetchAPI } from "../lib/api";
+import Image from 'next/image'
+import { getStrapiMedia } from "../lib/media"
 
 const ServiceTemplate = ({ category, categoriesId }) => {
   const { query } = useRouter()
@@ -113,8 +115,8 @@ const ServiceTemplate = ({ category, categoriesId }) => {
                           <div className="listing-thumbnail">
                             <Link href={`/listing/${brand.attributes.slug}`}>
                               <a className="">
-                                <img
-                                  src={brand.attributes.business_logo?.data?.attributes?.url}
+                                <Image
+                                  src={getStrapiMedia(brand.attributes.business_logo)}
                                   alt="Listing Image"
                                   width="400px"
                                   height="250px"
