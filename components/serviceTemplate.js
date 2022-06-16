@@ -9,7 +9,7 @@ import { toCamelCase } from "./utils"
 import { useRouter } from 'next/router'
 import { fetchAPI } from "../lib/api";
 
-const ServiceTemplate = ({ category }) => {
+const ServiceTemplate = ({ category, categoriesId }) => {
   const { query } = useRouter()
   const [city, setCity] = useState("")
   const [topBusinesses, setTopBusinesses] = useState('');
@@ -33,20 +33,23 @@ const ServiceTemplate = ({ category }) => {
         },
         populate: ["image", "category", "writer.picture"],
       });
-      setCategoryName(serviceRes?.data[0]?.id);
+
+      if (serviceRes?.data[0]) {
+        setCategoryName(serviceRes.data[0]);
+
+        (async () => {
+          const businessRes = await fetchAPI(`/businesses`, {
+            filters: {
+              service_categories: serviceRes.data[0].id
+            },
+            populate: "*",
+          });
+          setTopBusinesses(businessRes.data);
+        })();
+      }
     })();
   }, [])
-  useEffect(() => {
-    (async () => {
-      const businessRes = await fetchAPI(`/businesses`, {
-        filters: {
-          service_categories: categoryName
-        },
-        populate: "*"
-      });
-      setTopBusinesses(businessRes.data);
-    })();
-  }, [])
+
 
 
   console.log("Top Business", topBusinesses)
@@ -158,6 +161,14 @@ const ServiceTemplate = ({ category }) => {
   );
 };
 
+export const getStaticProps = async () => {
+  const res = await fetchAPI(`/service-categories`);
+  return {
+    props: {
+      categoriesId: res
+    }
+  }
+}
 
 
 
