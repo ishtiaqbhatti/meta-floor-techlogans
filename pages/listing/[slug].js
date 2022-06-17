@@ -30,6 +30,7 @@ const Name = () => {
   const [allReviews, setAllReviews] = useState("")
   const [rating, setRating] = useState(0)
   const [loading, setLoading] = useState(false)
+  const [starReview, setStarReview] = useState("")
   const router = useRouter()
 
   const actualRating = rating / 20;
@@ -60,8 +61,8 @@ const Name = () => {
     }
 
     console.log("DATA", data)
-   
-  
+
+
     // if (!errorFlag) {
     // await axios.post('/api/business-review', {
     //   "data": data
@@ -102,11 +103,11 @@ const Name = () => {
         },
         populate: "*",
       });
-      
+
       // console.log("BUSINESS", business)
-      if(businessesRes?.data[0]) {
+      if (businessesRes?.data[0]) {
         setBusiness(businessesRes.data[0]);
-        
+
         (async () => {
           const reviewRes = await fetchAPI(`/business-reviews`, {
             filters: {
@@ -122,15 +123,12 @@ const Name = () => {
 
   }, []);
 
+  // All Reviews Calculation
+  const totalReviews = allReviews?.data?.length
+  const result = allReviews?.data?.reduce((total, currentValue) => total = total + currentValue.attributes?.rating, 0) / totalReviews;
+  const totalStars = 5;
 
-  // useEffect(() => {
-  //   (async () => {
-  //     const reviewsRes = await fetchAPI("/business-reviews", {
-  //       populate: "*",
-  //     });
-  //     setAllReviews(reviewsRes.data);
-  //   })();
-  // }, []);
+
 
   const validationSchema = Yup.object({
     name: Yup.string()
@@ -213,24 +211,14 @@ const Name = () => {
                   <div className="listing-info-content">
                     <div className="content">
                       <ul className="ratings ratings-three">
-                        <li>
-                          <i className="flaticon-star-1" />
-                        </li>
-                        <li>
-                          <i className="flaticon-star-1" />
-                        </li>
-                        <li>
-                          <i className="flaticon-star-1" />
-                        </li>
-                        <li>
-                          <i className="flaticon-star-1" />
-                        </li>
-                        <li>
-                          <i className="flaticon-star-1" />
-                        </li>
+                        {[...new Array(totalStars)].map((arr, index) => {
+                          return index < result ? <span className="active_star">
+                            <AiTwotoneStar size={14} />
+                          </span> : <span><AiOutlineStar size={14} /></span>;
+                        })}
                         <li>
                           <span className="ml-2">
-                            <a href="#">(02 Reviews)</a>
+                            <a >({totalReviews} Reviews)</a>
                           </span>
                         </li>
                       </ul>
@@ -313,7 +301,7 @@ const Name = () => {
                                     {allReviews?.data?.length != 0 && (
                                       <>
                                         {allReviews.data?.map((review) => {
-                                          const totalStars = 5;
+
                                           const activeStars = review?.attributes?.rating;
                                           return (
                                             <>
