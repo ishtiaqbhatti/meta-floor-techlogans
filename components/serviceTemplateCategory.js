@@ -1,31 +1,20 @@
 import React, { useState, useEffect } from "react";
 import Link from 'next/link'
 import Title from "./layout/Title";
-import PageBanner from "./layout/PageBanner";
+import PageBannerCategory from "./layout/PageBannerCategory";
 import { Breadcrumb } from "react-bootstrap";
 import BrandComponent from './Brand/Brand';
-import ServiceTemplateFooter from './serviceTemplateFooter'
+import ServiceTemplateFooterCa from './serviceTemplateFooterCa'
 import { toCamelCase } from "./utils"
 import { useRouter } from 'next/router'
 import { fetchAPI } from "../lib/api";
 import Image from 'next/image'
 import { getStrapiMedia } from "../lib/media"
 
-const ServiceTemplate = ({ category }) => {
+const ServiceTemplateCategory = ({ category }) => {
   const { query } = useRouter()
-  const [city, setCity] = useState("")
   const [topBusinesses, setTopBusinesses] = useState('');
-  const stateName = toCamelCase(query.state);
-  const locationName = toCamelCase(query.location);
-  const [categoryName, setCategoryName] = useState('')
-
-  useEffect(() => {
-    const url = document.location.toString().split("/");
-    const state = url[url.length - 3].toUpperCase();
-    const city = toCamelCase(url[url.length - 2]);
-    setCity(city)
-  })
-
+  const [categoryName, setCategoryName] = useState('');
 
   useEffect(() => {
     (async () => {
@@ -43,7 +32,6 @@ const ServiceTemplate = ({ category }) => {
           const businessRes = await fetchAPI(`/businesses`, {
             filters: {
               service_categories: serviceRes.data[0].id,
-              city: city
             },
             populate: "*",
           });
@@ -55,7 +43,7 @@ const ServiceTemplate = ({ category }) => {
 
 
 
-  console.log("Top Business", JSON.stringify(city))
+  console.log("Top Business", topBusinesses)
 
   return (
     <>
@@ -68,29 +56,14 @@ const ServiceTemplate = ({ category }) => {
               </Link>
             </Breadcrumb.Item>
             <Breadcrumb.Item >
-              <Link href="/ca">
-                Province
-              </Link>
-            </Breadcrumb.Item>
-            <Breadcrumb.Item  >
-              <Link href={`/ca/${query.state}`}>
-                {stateName}
-              </Link>
-            </Breadcrumb.Item>
-            <Breadcrumb.Item  >
-              <Link href={`/ca/${query.state}/${query.location}`}>
-                {locationName}
-              </Link>
-            </Breadcrumb.Item>
-            <Breadcrumb.Item  >
-              <Link href={`/ca/${query.state}/${query.location}/${category.toLocaleLowerCase().replace(/[^A-Z0-9]+/ig, "-")}`}>
+              <Link href="">
                 {category}
               </Link>
             </Breadcrumb.Item>
           </Breadcrumb>
         </div>
       </div>
-      <PageBanner category={category} />
+      <PageBannerCategory category={category} />
       <Title />
       <div className="container py-5">
 
@@ -103,7 +76,7 @@ const ServiceTemplate = ({ category }) => {
 
             <>
               <div className="top_listing_busniess">
-                <h3>Top Listings in {locationName}</h3>
+                <h3>Top Listings of {category}</h3>
               </div>
               <div className="row">
                 {topBusinesses &&
@@ -158,15 +131,11 @@ const ServiceTemplate = ({ category }) => {
           )}
 
       </div>
-      {/* <BrandComponent category={category} city={city} /> */}
-      <ServiceTemplateFooter />
+      {/* <BrandComponent topBusinesses={topBusinesses} category={category} city="Canada" /> */}
+      <ServiceTemplateFooterCa />
 
     </>
   );
 };
 
-
-
-
-
-export default ServiceTemplate;
+export default ServiceTemplateCategory;

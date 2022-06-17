@@ -10,122 +10,122 @@ export const Home = () => (
     </li>
   </Fragment>
 );
-export const Hardwood = ({ cityInfo }) => (
+export const Hardwood = () => (
   <Fragment>
     <li className="menu-item">
-      <Link href={`/ca/${cityInfo.province_id}/${cityInfo.city}/hardwood-floor-refinishing`}>
+      <Link href={`/hardwood/hardwood-floor-refinishing`}>
         <a>Hardwood Floor Refinishing</a>
       </Link>
     </li>
     <li className="menu-item">
-      <Link href={`/ca/${cityInfo.province_id}/${cityInfo.city}/hardwood-floor-installation`}>
+      <Link href={`/hardwood/hardwood-floor-installation`}>
         <a>Hardwood Floor Installation</a>
       </Link>
     </li>
     <li className="menu-item">
-      <Link href={`/ca/${cityInfo.province_id}/${cityInfo.city}/hardwood-floor-repair`}>
+      <Link href={`/hardwood/hardwood-floor-repair`}>
         <a>Hardwood Floor Repair</a>
       </Link>
     </li>
     <li className="menu-item">
-      <Link href={`/ca/${cityInfo.province_id}/${cityInfo.city}/hardwood-floor-store`}>
+      <Link href={`/hardwood/hardwood-floor-store`}>
         <a>Hardwood Floor Store</a>
       </Link>
     </li>
     <li className="menu-item">
-      <Link href={`/ca/${cityInfo.province_id}/${cityInfo.city}/hardwood-floor-cleaning`}>
+      <Link href={`/hardwood/hardwood-floor-cleaning`}>
         <a>Hardwood Floor Cleaning</a>
       </Link>
     </li>
   </Fragment>
 );
-export const Laminate = ({ cityInfo }) => (
+export const Laminate = () => (
   <Fragment>
     <li className="menu-item">
-      <Link href={`/ca/${cityInfo.province_id}/${cityInfo.city}/laminate-floor-installation`}>
+      <Link href={`/laminate/laminate-floor-installation`}>
         <a>Laminate Flooring Installation</a>
       </Link>
     </li>
     <li className="menu-item">
-      <Link href={`/ca/${cityInfo.province_id}/${cityInfo.city}/laminate-floor-store`}>
+      <Link href={`/laminate/laminate-floor-store`}>
         <a>Laminate Flooring Store</a>
       </Link>
     </li>
     <li className="menu-item">
-      <Link href={`/ca/${cityInfo.province_id}/${cityInfo.city}/laminate-floor-repair`}>
+      <Link href={`/laminate/laminate-floor-repair`}>
         <a>Laminate Floor Repair</a>
       </Link>
     </li>
   </Fragment>
 );
-export const Vinyl = ({ cityInfo }) => (
+export const Vinyl = () => (
   <Fragment>
     <li className="menu-item">
-      <Link href={`/ca/${cityInfo.province_id}/${cityInfo.city}/vinyl-floor-store`}>
+      <Link href={`/vinyl/vinyl-floor-store`}>
         <a>Vinyl Floor Store</a>
       </Link>
     </li>
     <li className="menu-item">
-      <Link href={`/ca/${cityInfo.province_id}/${cityInfo.city}/vinyl-decking-installation`}>
+      <Link href={`/vinyl/vinyl-decking-installation`}>
         <a>Vinyl Decking Installation</a>
       </Link>
     </li>
     <li className="menu-item">
-      <Link href={`/ca/${cityInfo.province_id}/${cityInfo.city}/vinyl-floor-installation`}>
+      <Link href={`/vinyl/vinyl-floor-installation`}>
         <a>Vinyl Flooring Installation</a>
       </Link>
     </li>
     <li className="menu-item">
-      <Link href={`/ca/${cityInfo.province_id}/${cityInfo.city}/vinyl-floor-repair`}>
+      <Link href={`/vinyl/vinyl-floor-repair`}>
         <a>Vinyl Flooring Repair</a>
       </Link>
     </li>
     <li className="menu-item">
-      <Link href={`/ca/${cityInfo.province_id}/${cityInfo.city}/vinyl-deck-repair`}>
+      <Link href={`/vinyl/vinyl-deck-repair`}>
         <a>Vinyl Deck Repair</a>
       </Link>
     </li>
   </Fragment>
 );
-export const Tile = ({ cityInfo }) => (
+export const Tile = () => (
   <Fragment>
     <li className="menu-item">
-      <Link href={`/ca/${cityInfo.province_id}/${cityInfo.city}/tile-store`}>
+      <Link href={`/tile/tile-store`}>
         <a>Tile Store</a>
       </Link>
     </li>
     <li className="menu-item">
-      <Link href={`/ca/${cityInfo.province_id}/${cityInfo.city}/tile-installer`}>
+      <Link href={`/tile/tile-installer`}>
         <a>Tile Installer</a>
       </Link>
     </li>
   </Fragment>
 );
-export const Carpet = ({ cityInfo }) => (
+export const Carpet = () => (
   <Fragment>
     <li className="menu-item">
-      <Link href={`/ca/${cityInfo.province_id}/${cityInfo.city}/carpet-installer`}>
+      <Link href={`/carpet/carpet-installer`}>
         <a>Carpet Installer</a>
       </Link>
     </li>
     <li className="menu-item">
-      <Link href={`/ca/${cityInfo.province_id}/${cityInfo.city}/carpet-cleaning`}>
+      <Link href={`/carpet/carpet-cleaning`}>
         <a>Carpet Cleaning</a>
       </Link>
     </li>
     <li className="menu-item">
-      <Link href={`/ca/${cityInfo.province_id}/${cityInfo.city}/carpet-store`}>
+      <Link href={`/carpet/carpet-store`}>
         <a>Carpet Store</a>
       </Link>
     </li>
     <li className="menu-item">
-      <Link href={`/ca/${cityInfo.province_id}/${cityInfo.city}/carpet-repair`}>
+      <Link href={`/carpet/carpet-repair`}>
         <a>Carpet Repair</a>
       </Link>
     </li>
   </Fragment>
 );
-export const Brands = ({ cityInfo }) => (
+export const Brands = () => (
   <Fragment>
     <li className="menu-item">
       <Link href="/brand">

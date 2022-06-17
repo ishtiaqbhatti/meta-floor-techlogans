@@ -16,7 +16,7 @@ const Service = () => {
 
     return (
         <Layout category={query.service}>
-            <ServiceTemplate category={capitalCategory} stateBread={query.state} stateLocation={query.location} stateName={stateName} location={locationName} />
+            <ServiceTemplate category={capitalCategory} />
         </Layout>
     )
 }
