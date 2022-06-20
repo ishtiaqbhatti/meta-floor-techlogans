@@ -42,8 +42,7 @@ const ServiceTemplate = ({ category }) => {
         (async () => {
           const businessRes = await fetchAPI(`/businesses`, {
             filters: {
-              service_categories: serviceRes.data[0].id,
-              city: city
+              $or: [{ city: city }, { service_categories: serviceRes.data[0].id }]
             },
             populate: "*",
           });
@@ -55,7 +54,7 @@ const ServiceTemplate = ({ category }) => {
 
 
 
-  console.log("Top Business", JSON.stringify(city))
+  console.log("Top Business", topBusinesses)
 
   return (
     <>

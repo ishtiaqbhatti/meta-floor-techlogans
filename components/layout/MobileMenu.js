@@ -196,7 +196,7 @@ const MobileMenu = ({ category, cityInfo, setInfo }) => {
         </div>
       </div>
 
-      <MainSearch />
+      <MainSearch category={category} cityInfo={cityInfo} setInfo={setInfo} />
 
     </header>
   );

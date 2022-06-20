@@ -16,8 +16,13 @@ const Footer = ({ cityInfo }) => {
                   <h2>
                     Find Flooring Stores & Contractors Near You
                   </h2>
-                  <button className="btn-root register-btn">
-                    Learn More
+                  <Link href="/ca">
+                    <a className="btn-root register-btn">
+                      Learn More
+                    </a>
+                  </Link>
+                  <button >
+
                   </button>
                 </div>
               </div>

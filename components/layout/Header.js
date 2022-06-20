@@ -25,6 +25,7 @@ const Header = ({ category, cityInfo, setInfo }) => {
   const getDeliveryUrl = async (e) => {
     e.preventDefault();
     const value = toCamelCase(e.target.location.value);
+    console.log("All Value", value)
     const cityInfoItems = await fetchAPI("/canada-cities", {
       filters: {
         city_ascii: {
@@ -177,7 +178,7 @@ const Header = ({ category, cityInfo, setInfo }) => {
           </div>
         </div>
       </div>
-      <MainSearch />
+      <MainSearch category={category} cityInfo={cityInfo} setInfo={setInfo} />
     </header>
   );
 };

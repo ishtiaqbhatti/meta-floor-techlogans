@@ -1261,6 +1261,10 @@ ul.ratings.ratings-one li.star:nth-child(1) i,
   background-color: #19b5bc;
 }
 
+.register-btn:hover {
+  color: #ffffff;
+}
+
 @media only screen and (min-width: 1200px) and (max-width: 1600px) {
   .header-area .header-top .container-fluid {
     padding-left: 15px;

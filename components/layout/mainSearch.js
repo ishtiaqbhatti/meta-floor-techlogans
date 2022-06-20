@@ -17,14 +17,16 @@ import RoomIcon from "@mui/icons-material/Room";
 import SearchIcon from "@mui/icons-material/Search";
 import { fetchAPI } from "../../lib/api";
 import { getSlug, toCamelCase } from "../utils";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-const MainSearch = () => {
+const MainSearch = ({ category, cityInfo, setInfo }) => {
 
     const router = useRouter();
-
     const getDeliveryUrl = async (e) => {
         e.preventDefault();
         const value = toCamelCase(e.target.location.value);
+        console.log("Value", value)
         const cityInfoItems = await fetchAPI("/canada-cities", {
             filters: {
                 city_ascii: {
@@ -33,9 +35,18 @@ const MainSearch = () => {
             },
             populate: "*",
         });
+        console.log("Value", cityInfoItems)
         const cityInfo = cityInfoItems.data[0];
         if (cityInfo == undefined) {
-            alert("Please type a city name correctly");
+            toast('Please type a city name correctly', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
         } else {
             const city = getSlug(cityInfo.attributes.city_ascii);
             const province_id = cityInfo.attributes.province_id.toLowerCase();
@@ -47,7 +58,16 @@ const MainSearch = () => {
             if (category !== undefined) {
                 router.push(`/ca/${province_id}/${city}/${category}`);
             } else {
-                router.push("#");
+                toast('We have not find the Category Name', {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                });
+                router.push("/");
             }
         }
     };
@@ -55,6 +75,7 @@ const MainSearch = () => {
 
     return (
         <>
+            <ToastContainer />
             <div className="header-top">
                 <div className="container-fluid">
                     <div
