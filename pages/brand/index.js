@@ -36,7 +36,7 @@ const Brand = () => {
       </div>
       <section className="products-area pt-50 pb-100">
         <div className="container">
-          <div className="products-filter mb-30">
+          {/* <div className="products-filter mb-30">
             <div className="row justify-content-between align-items-center">
               <div className="col-lg-5">
                 <div className="sort-dropdown d-flex align-items-center">
@@ -47,7 +47,7 @@ const Brand = () => {
               </div>
 
             </div>
-          </div>
+          </div> */}
           <div className="products-item-wrapper">
             <div className="row">
               {businesses &&

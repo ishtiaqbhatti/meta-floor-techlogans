@@ -15,9 +15,11 @@ const ServiceTemplateCategory = ({ category }) => {
   const { query } = useRouter()
   const [topBusinesses, setTopBusinesses] = useState('');
   const [categoryName, setCategoryName] = useState('');
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     (async () => {
+      setLoading(true)
       const serviceRes = await fetchAPI(`/service-categories`, {
         filters: {
           name: category,
@@ -36,6 +38,7 @@ const ServiceTemplateCategory = ({ category }) => {
             populate: "*",
           });
           setTopBusinesses(businessRes.data);
+          setLoading(false);
         })();
       }
     })();
@@ -66,69 +69,72 @@ const ServiceTemplateCategory = ({ category }) => {
       <PageBannerCategory category={category} />
       <Title />
       <div className="container py-5">
+        {loading === true ? <p>Loading...</p> : <div className="">
+          {topBusinesses?.length == 0 ?
+            <p className="filter_business ">We apologize, we haven’t
+              added any brands for your area quite yet. Please let your
+              local business owners know to add themselves for FREE.
+            </p>
+            : (
 
-        {topBusinesses?.length == 0 ?
-          <p className="filter_business ">We apologize, we haven’t
-            added any brands for your area quite yet. Please let your
-            local business owners know to add themselves for FREE.
-          </p>
-          : (
-
-            <>
-              <div className="top_listing_busniess">
-                <h3>Top Listings of {category}</h3>
-              </div>
-              <div className="row">
-                {topBusinesses &&
-                  topBusinesses?.map((brand, index) => {
-                    return (
-                      <div className="col-lg-3 col-md-4 col-sm-6" key={index}>
-                        <div className="listing-item listing-grid-item-two mb-30">
-                          <div className="listing-thumbnail">
-                            <Link href={`/listing/${brand.attributes.slug}`}>
-                              <a className="">
-                                <Image
-                                  src={getStrapiMedia(brand.attributes.business_logo)}
-                                  alt="Listing Image"
-                                  width="400px"
-                                  height="250px"
-                                />
-                              </a>
-                            </Link>
-                          </div>
-                          <div className="listing-content">
-                            <h3 className="title">
+              <>
+                <div className="top_listing_busniess">
+                  <h3>Top Listings of {category}</h3>
+                </div>
+                <div className="row">
+                  {topBusinesses &&
+                    topBusinesses?.map((brand, index) => {
+                      return (
+                        <div className="col-lg-3 col-md-4 col-sm-6" key={index}>
+                          <div className="listing-item listing-grid-item-two mb-30">
+                            <div className="listing-thumbnail">
                               <Link href={`/listing/${brand.attributes.slug}`}>
-                                <a>{brand.attributes.name}</a>
-                              </Link>
-                            </h3>
-                            <span className="phone-meta">
-                              <i className="ti-tablet" />
-                              {brand.attributes.phone_number && (
-                                <a href={`tel:${brand.attributes.phone_number}`}>
-                                  {brand.attributes.phone_number}
+                                <a className="">
+                                  <Image
+                                    src={getStrapiMedia(brand.attributes.business_logo)}
+                                    alt="Listing Image"
+                                    width="400px"
+                                    height="250px"
+                                  />
                                 </a>
-                              )}
-                            </span>
-                            <div className="listing-meta">
-                              <ul>
-                                <li>
-                                  <span>
-                                    <i className="ti-location-pin" />
-                                    {brand.attributes && brand.attributes.address}
-                                    , CANADA
-                                  </span>
-                                </li>
-                              </ul>
+                              </Link>
+                            </div>
+                            <div className="listing-content">
+                              <h3 className="title">
+                                <Link href={`/listing/${brand.attributes.slug}`}>
+                                  <a>{brand.attributes.name}</a>
+                                </Link>
+                              </h3>
+                              <span className="phone-meta">
+                                <i className="ti-tablet" />
+                                {brand.attributes.phone_number && (
+                                  <a href={`tel:${brand.attributes.phone_number}`}>
+                                    {brand.attributes.phone_number}
+                                  </a>
+                                )}
+                              </span>
+                              <div className="listing-meta">
+                                <ul>
+                                  <li>
+                                    <span>
+                                      <i className="ti-location-pin" />
+                                      {brand.attributes && brand.attributes.address}
+                                      , CANADA
+                                    </span>
+                                  </li>
+                                </ul>
+                              </div>
                             </div>
                           </div>
                         </div>
-                      </div>
-                    );
-                  })}
-              </div>
-            </>
-          )}
+                      );
+                    })}
+                </div>
+              </>
+            )}
+
+        </div>}
+
 
       </div>
       {/* <BrandComponent topBusinesses={topBusinesses} category={category} city="Canada" /> */}

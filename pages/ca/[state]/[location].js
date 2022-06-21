@@ -4,6 +4,8 @@ import Link from 'next/link'
 import { Breadcrumb } from 'react-bootstrap'
 import { useRouter } from 'next/router'
 import { fetchAPI } from "../../../lib/api";
+import { getStrapiMedia } from "../../../lib/media"
+import Image from "next/image";
 // import { Head } from "next/head";
 import qs from 'qs'
 
@@ -13,6 +15,7 @@ const Citylocation = () => {
 
     const [service, setService] = useState('')
     const [topBusinesses, setTopBusinesses] = useState('');
+    const [loading, setLoading] = useState(false)
     console.log("single Data", query.location)
     useEffect(() => {
         (async () => {
@@ -27,10 +30,12 @@ const Citylocation = () => {
     }, [])
     useEffect(() => {
         (async () => {
+            setLoading(true);
             const businessRes = await fetchAPI(`/businesses`, {
                 populate: "*"
             });
             setTopBusinesses(businessRes.data);
+            setLoading(false)
         })();
     }, [])
     const stateName = query.state.toUpperCase();
@@ -222,69 +227,74 @@ const Citylocation = () => {
                     </div>
                 </div>
                 <div className="container py-5">
+                    {loading === true ? <p>Loading</p> :
+                        <div className="">
+                            {filterCity?.length == 0 ?
+                                <p className="filter_business text-center">We apologize, we haven’t
+                                    added any brands for your area quite yet. Please let your
+                                    local business owners know to add themselves for FREE.
+                                </p>
+                                : (
 
-                    {filterCity?.length == 0 ?
-                        <p className="filter_business text-center">We apologize, we haven’t
-                            added any brands for your area quite yet. Please let your
-                            local business owners know to add themselves for FREE.
-                        </p>
-                        : (
-
-                            <>
-                                <div className="top_listing_busniess">
-                                    <h3>Top Listings in {locationName}</h3>
-                                </div>
-                                <div className="row">
-                                    {filterCity &&
-                                        filterCity.map((brand, index) => {
-                                            return (
-                                                <div className="col-lg-3 col-md-4 col-sm-6" key={index}>
-                                                    <div className="listing-item listing-grid-item-two mb-30">
-                                                        <div className="listing-thumbnail">
-                                                            <Link href={`/listing/${brand.attributes.slug}`}>
-                                                                <a className="">
-                                                                    <img
-                                                                        src={brand.attributes.business_logo?.data?.attributes?.url}
-                                                                        alt="Listing Image"
-                                                                        width="400px"
-                                                                        height="200px"
-                                                                    />
-                                                                </a>
-                                                            </Link>
-                                                        </div>
-                                                        <div className="listing-content">
-                                                            <h3 className="title">
-                                                                <Link href={`/listing/${brand.attributes.slug}`}>
-                                                                    <a>{brand.attributes.name}</a>
-                                                                </Link>
-                                                            </h3>
-                                                            <span className="phone-meta">
-                                                                <i className="ti-tablet" />
-                                                                {brand.attributes.phone_number && (
-                                                                    <a href={`tel:${brand.attributes.phone_number}`}>
-                                                                        {brand.attributes.phone_number}
-                                                                    </a>
-                                                                )}
-                                                            </span>
-                                                            <div className="listing-meta">
-                                                                <ul>
-                                                                    <li>
-                                                                        <span>
-                                                                            <i className="ti-location-pin" />
-                                                                            {brand.attributes && brand.attributes.address}
-                                                                            , CANADA
-                                                                        </span>
-                                                                    </li>
-                                                                </ul>
+                                    <>
+                                        <div className="top_listing_busniess">
+                                            <h3>Top Listings in {locationName}</h3>
+                                        </div>
+                                        <div className="row">
+                                            {filterCity &&
+                                                filterCity.map((brand, index) => {
+                                                    return (
+                                                        <div className="col-lg-3 col-md-4 col-sm-6" key={index}>
+                                                            <div className="listing-item listing-grid-item-two mb-30">
+                                                                <div className="listing-thumbnail">
+                                                                    <Link href={`/listing/${brand.attributes.slug}`}>
+                                                                        <a className="">
+                                                                            <Image
+                                                                                src={getStrapiMedia(brand.attributes.business_logo)}
+                                                                                alt="Listing Image"
+                                                                                width="400px"
+                                                                                height="200px"
+                                                                            />
+                                                                        </a>
+                                                                    </Link>
+                                                                </div>
+                                                                <div className="listing-content">
+                                                                    <h3 className="title">
+                                                                        <Link href={`/listing/${brand.attributes.slug}`}>
+                                                                            <a>{brand.attributes.name}</a>
+                                                                        </Link>
+                                                                    </h3>
+                                                                    <span className="phone-meta">
+                                                                        <i className="ti-tablet" />
+                                                                        {brand.attributes.phone_number && (
+                                                                            <a href={`tel:${brand.attributes.phone_number}`}>
+                                                                                {brand.attributes.phone_number}
+                                                                            </a>
+                                                                        )}
+                                                                    </span>
+                                                                    <div className="listing-meta">
+                                                                        <ul>
+                                                                            <li>
+                                                                                <span>
+                                                                                    <i className="ti-location-pin" />
+                                                                                    {brand.attributes && brand.attributes.address}
+                                                                                    , CANADA
+                                                                                </span>
+                                                                            </li>
+                                                                        </ul>
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                </div>
-                                            );
-                                        })}
-                                </div>
-                            </>
-                        )}
+                                                    );
+                                                })}
+                                        </div>
+                                    </>
+                                )}
+                        </div>
+                    }
+
+
 
                 </div>
             </Layout>

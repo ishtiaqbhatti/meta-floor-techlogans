@@ -3362,6 +3362,7 @@ h3.title {
 .listing-slider-two .listing-grid-item-two {
   margin-left: 15px;
   margin-right: 15px;
+  border: 1px solid silver;
 }
 
 .listing-grid-item-two .listing-thumbnail .cat-btn {

@@ -46,7 +46,7 @@ const HomeComponent = () => {
               className="top_deliveries"
             />
             <div style={{ display: "flex", flexWrap: "wrap" }}>
-              <h2 className="MuiTypography-root MuiTypography-h2">
+              <h2 className="MuiTypography-root MuiTypography-h2 top_heading">
                 TOP Flooring Brands
               </h2>
             </div>
@@ -114,7 +114,7 @@ const HomeComponent = () => {
               height="100%"
             />
             <div >
-              <h2 className="MuiTypography-root MuiTypography-h2">
+              <h2 className="MuiTypography-root MuiTypography-h2 top_heading">
                 Top Services / Contractors from that location
               </h2>
             </div>
@@ -180,7 +180,7 @@ const HomeComponent = () => {
               height="100%"
             />
             <div style={{ display: "flex", flexWrap: "wrap" }}>
-              <h2 className="MuiTypography-root MuiTypography-h2">
+              <h2 className="MuiTypography-root MuiTypography-h2 top_heading">
                 Everything you need for your floors and more
               </h2>
             </div>
