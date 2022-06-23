@@ -13,19 +13,20 @@ import { getStrapiMedia } from "../lib/media"
 
 const ServiceTemplate = ({ category }) => {
   const { query } = useRouter()
-  const [city, setCity] = useState("")
+  // const [city, setCity] = useState("")
   const [topBusinesses, setTopBusinesses] = useState('');
   const [loading, setLoading] = useState(false);
   const stateName = toCamelCase(query.state);
   const locationName = toCamelCase(query.location);
   const [categoryName, setCategoryName] = useState('')
 
-  useEffect(() => {
-    const url = document.location.toString().split("/");
-    const state = url[url.length - 3].toUpperCase();
-    const city = toCamelCase(url[url.length - 2]);
-    setCity(city)
-  })
+  // useEffect(() => {
+  //   const url = document.location.toString().split("/");
+  //   const state = url[url.length - 3].toUpperCase();
+  //   const city = toCamelCase(url[url.length - 2]);
+  //   console.log("CITY ", city)
+  //   setCity(city)
+  // })
 
 
   useEffect(() => {
@@ -40,10 +41,13 @@ const ServiceTemplate = ({ category }) => {
       if (serviceRes?.data[0]) {
         setCategoryName(serviceRes.data[0]);
         (async () => {
+          const url = document.location.toString().split("/");
+          const city = toCamelCase(url[url.length - 2]);
           const businessRes = await fetchAPI(`/businesses`, {
             filters: {
               // $or: [{ city: city }, { service_categories: serviceRes.data[0].id }]
-              service_categories: serviceRes.data[0].id
+              service_categories: serviceRes.data[0].id,
+              city: city
             },
             populate: "*",
           });

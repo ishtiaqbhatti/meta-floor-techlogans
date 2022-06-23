@@ -98,8 +98,10 @@ const Citylocation = () => {
                 </div>
                 <div className="ca_location py-5">
                     <div className="container">
-                        <h3 className="main_heading">Flooring Contractors & Supplies in
-                            {query.location.charAt(0).toUpperCase().replace(/[^a-zA-Z ]/g, " ") + query.location.slice(1).replace(/[^a-zA-Z ]/g, " ")}, {stateName} </h3>
+                        <h3 className="main_heading">
+                            {`Flooring Contractors & Supplies in ${" "}
+                            ${query.location.charAt(0).toUpperCase().replace("  ", /[^a-zA-Z ]/g, "  ") + query.location.slice(1).replace(/[^a-zA-Z ]/g, " ")}, ${stateName}`}
+                        </h3>
                         <div className="row my-3">
                             <div className="col-lg-3 col-md-3 col-sm-4 col-6">
                                 <h3 className="category_name">

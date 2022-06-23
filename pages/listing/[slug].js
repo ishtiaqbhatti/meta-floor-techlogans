@@ -187,12 +187,13 @@ const Name = () => {
                   <div className="listing-info-name">
                     <div className="info-name d-flex">
                       <div className="thumb">
-                        <Image
+                        <img  src={getStrapiMedia(business.attributes.business_logo)} />
+                        {/* <Image
                           src={getStrapiMedia(business.attributes.business_logo)}
                           alt="Listing Image"
                           width="270px"
                           height="195px"
-                        />
+                        /> */}
                       </div>
                       <div className="content">
                         <span className="cat-btn">
