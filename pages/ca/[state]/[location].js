@@ -6,7 +6,7 @@ import { useRouter } from 'next/router'
 import { fetchAPI } from "../../../lib/api";
 import { getStrapiMedia } from "../../../lib/media"
 import Image from "next/image";
-// import { Head } from "next/head";
+import Head from "next/head";
 import qs from 'qs'
 
 const Citylocation = () => {
@@ -59,9 +59,10 @@ const Citylocation = () => {
 
     return (
         <>
-            {/* <Head>
+            <Head>
+                <title>{`Find Top-Rated Flooring Services in ${cityName},${query.state} - Flooring Metaverse`}</title>
                 <meta property="title" content={`Find Top-Rated Flooring Services in ${cityName},${query.state} - Flooring Metaverse`} key="title" />
-            </Head> */}
+            </Head>
             <Layout>
                 <div className="bread">
                     <div className="container">

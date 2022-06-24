@@ -11,15 +11,14 @@ const Brand = () => {
     (async () => {
       const businesses = await fetchAPI("/businesses", {
         filters: {
-          services: {
-            name: "Brand",
-          },
+          services: 6,
         },
         populate: "*",
       });
       setBusiness(businesses.data);
     })();
   }, []);
+  console.log("All Business", businesses)
   return (
     <Layout>
       <div className="home-header">
@@ -34,89 +33,68 @@ const Brand = () => {
           </div>
         </div>
       </div>
-      <section className="products-area pt-50 pb-100">
-        <div className="container">
-          {/* <div className="products-filter mb-30">
-            <div className="row justify-content-between align-items-center">
-              <div className="col-lg-5">
-                <div className="sort-dropdown d-flex align-items-center">
-                  <div className="show-text">
-                    <p>Showing Result 01-09</p>
-                  </div>
-                </div>
+      <div className="delivery-container container-fluid">
+        <div className="delivery-body">
+          <div className="delivery-content">
+            <div className="delivery-header">
+              <div style={{ display: "flex", flexWrap: "wrap" }}>
+                <h2 className="MuiTypography-root MuiTypography-h2 top_heading my-3">
+                  TOP Flooring Brands
+                </h2>
               </div>
-
             </div>
-          </div> */}
-          <div className="products-item-wrapper">
-            <div className="row">
-              {businesses &&
-                businesses.map((business, index) => {
-                  return (
-                    <div className="col-lg-4 col-md-6 col-sm-6" key={index}>
-                      <div className="listing-item listing-grid-item-two mb-30">
-                        <div className="listing-thumbnail">
-                          <Link href={`/brand/${business.attributes.slug}`}>
-                            <a className="m-5">
-                              <Image
-                                src={getStrapiMedia(
-                                  business.attributes.business_logo
-                                )}
-                                alt="Listing Image"
-                                width="270px"
-                                height="195px"
-                              />
-                            </a>
+          </div>
+          <div className="row">
+            {businesses &&
+              businesses.map((brand, index) => {
+                return (
+                  <div className="col-lg-3 col-md-4 col-sm-6" key={brand.id}>
+                    <div className="listing-item listing-grid-item-two mb-30">
+                      <div className="listing-thumbnail">
+                        <Link href={`/listing/${brand.attributes.slug}`}>
+                          <a className="">
+                            <Image
+                              src={getStrapiMedia(brand.attributes.business_logo)}
+                              alt="Listing Image"
+                              width="400px"
+                              height="200px"
+                            />
+                          </a>
+                        </Link>
+                      </div>
+                      <div className="listing-content">
+                        <h3 className="title">
+                          <Link href={`/listing/${brand.attributes.slug}`}>
+                            <a>{brand.attributes.name}</a>
                           </Link>
+                        </h3>
+                        <span className="phone-meta">
+                          <i className="ti-tablet" />
+                          {brand.attributes.phone_number && (
+                            <a href={`tel:${brand.attributes.phone_number}`}>
+                              {brand.attributes.phone_number}
+                            </a>
+                          )}
+                        </span>
+                        <div className="listing-meta">
+                          <ul>
+                            <li>
+                              <span>
+                                <i className="ti-location-pin" />
+                                {brand.attributes && brand.attributes.address}
 
-                        </div>
-                        <div className="listing-content">
-                          <h3 className="title">
-                            <Link href={`/brand/${business.attributes.slug}`}>
-                              <a>{business.attributes.name}</a>
-                            </Link>
-                          </h3>
-                          <p>
-                            Popular Brand in{" "}
-                            {
-                              business.attributes.canada_city.data.attributes
-                                .city_ascii
-                            }
-                          </p>
-                          <span className="phone-meta">
-                            <i className="ti-tablet" />
-                            {business.attributes.phone_number && (
-                              <a href={`tel:${business.attributes.phone_number}`}>
-                                {business.attributes.phone_number}
-                              </a>
-                            )}
-
-                          </span>
-                          <div className="listing-meta">
-                            <ul>
-                              <li>
-                                <span>
-                                  <i className="ti-location-pin" />
-                                  {business.attributes.address}
-                                </span>
-                              </li>
-
-                            </ul>
-                          </div>
+                              </span>
+                            </li>
+                          </ul>
                         </div>
                       </div>
                     </div>
-                  );
-                })}
-              {businesses.length == 0 &&
-                <div className="text-center">
-                  <p className="text-center">We apologize, we haven’t added any brands for your area quite yet. Please let your local business owners know to add themselves for FREE.</p>
-                </div>
-              }
-            </div>
+                  </div>
+                );
+              })}
           </div>
         </div>
-      </section>
+      </div>
     </Layout>
   );
 };

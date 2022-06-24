@@ -9,6 +9,7 @@ import { toCamelCase } from "./utils"
 import { useRouter } from 'next/router'
 import { fetchAPI } from "../lib/api";
 import Image from 'next/image'
+import Head from 'next/head'
 import { getStrapiMedia } from "../lib/media"
 
 const ServiceTemplate = ({ category }) => {
@@ -64,6 +65,9 @@ const ServiceTemplate = ({ category }) => {
 
   return (
     <>
+      <Head>
+        <meta property="title" content={`Find Top-Rated ${category} Services in ${locationName}, ${stateName}. - Flooring Metaverse`} />
+      </Head>
       <div className="bread">
         <div className="container">
           <Breadcrumb>

@@ -19,9 +19,7 @@ const HomeComponent = () => {
       });
       const brands = await fetchAPI("/businesses", {
         filters: {
-          services: {
-            name: "Brand",
-          },
+          services: 6,
         },
         populate: "*",
       });
@@ -56,7 +54,7 @@ const HomeComponent = () => {
           {topBrands &&
             topBrands.map((brand, index) => {
               return (
-                <div className="col-lg-3 col-md-4 col-sm-6" key={index}>
+                <div className="col-lg-3 col-md-4 col-sm-6" key={brand.id}>
                   <div className="listing-item listing-grid-item-two mb-30">
                     <div className="listing-thumbnail">
                       <Link href={`/listing/${brand.attributes.slug}`}>
@@ -64,11 +62,11 @@ const HomeComponent = () => {
                           <Image
                             src={getStrapiMedia(brand.attributes.business_logo)}
                             alt="Listing Image"
-                            width="100%"
+                            width="400px"
+                            height="200px"
                           />
                         </a>
                       </Link>
-
                     </div>
                     <div className="listing-content">
                       <h3 className="title">
@@ -83,18 +81,16 @@ const HomeComponent = () => {
                             {brand.attributes.phone_number}
                           </a>
                         )}
-
                       </span>
                       <div className="listing-meta">
                         <ul>
                           <li>
                             <span>
                               <i className="ti-location-pin" />
-                              {brand.attributes.canada_city.data.attributes.city_ascii.toUpperCase()}
-                              , CANADA
+                              {brand.attributes && brand.attributes.address}
+
                             </span>
                           </li>
-
                         </ul>
                       </div>
                     </div>

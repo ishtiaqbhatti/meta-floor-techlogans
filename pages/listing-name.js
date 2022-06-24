@@ -290,7 +290,7 @@ const AddListing = ({ candaCity }) => {
       .matches(/^[0-9\s]+$/, "Only number are allowed for this field ")
       .required("Phone Number is required"),
     description: Yup.string().required("Description is required"),
-    tagline: Yup.string().required("Tagline is required"),
+    tagline: Yup.string(),
     // city: Yup.string().required("City is required"),
   });
   const initialValues = {
@@ -355,7 +355,7 @@ const AddListing = ({ candaCity }) => {
                     <input
                       type="email"
                       className="form_control"
-                      placeholder="Business Email"
+                      placeholder="Business Email*"
                       name="email"
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
@@ -368,7 +368,7 @@ const AddListing = ({ candaCity }) => {
                 </div>
                 <div className="add-listing-form col-lg-12 pt-1">
                   <div className="form_group file-input-one d-flex">
-                    <label className='mr-2'>Business Logo:</label>
+                    <label className='mr-2'>Business Logo*:</label>
                     <input type="file" name="Image" id="imgInp" onChange={previewImage} required />
                     <img id="blah" src="#" alt=" " width="50px" style={{ display: "none" }} />
                     {/* <div className="upload-content">
@@ -408,7 +408,7 @@ const AddListing = ({ candaCity }) => {
                     <input
                       type="text"
                       className="form_control"
-                      placeholder="Phone"
+                      placeholder="Phone*"
                       name="phone"
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
@@ -455,7 +455,7 @@ const AddListing = ({ candaCity }) => {
                   <div className="form_group">
                     <textarea
                       className="form_control"
-                      placeholder="Description"
+                      placeholder="Description*"
                       name="description"
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
@@ -699,8 +699,7 @@ const AddListing = ({ candaCity }) => {
                 </div>
                 <div className="col-lg-3">
                   <select className="form_control" onChange={e => setSelectState(e.target.value)} required>
-                    <option selected >Select State</option>
-                    <option value="Canada State" >Canada State</option>
+                    <option selected >Select State*</option>
                     {uniqueCities && uniqueCities?.sort().map((state) => {
                       return (
                         <>
@@ -712,8 +711,7 @@ const AddListing = ({ candaCity }) => {
                 </div>
                 <div className="col-lg-3">
                   <select className="form_control" onChange={e => setSelectCity(e.target.value)} required>
-                    <option selected >Select City</option>
-                    <option value="Canda City" >Canda City</option>
+                    <option selected >Select City*</option>
                     {cityOptions && cityOptions?.sort().map((city) => {
                       return (
                         <>
