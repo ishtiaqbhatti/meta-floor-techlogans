@@ -18,7 +18,7 @@ import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import axios from "axios";
 import dateFormat from "dateformat";
 import qs from 'qs';
-
+import Head from "next/head"
 
 
 // import { DynamicStar } from 'react-dynamic-star';
@@ -161,6 +161,10 @@ const Name = () => {
 
   return (
     <Layout>
+      <Head>
+        <title>{business?.attributes?.name}</title>
+        <meta property="title" content={business?.attributes?.description} />
+      </Head>
       <div className="bread">
         <div className="container">
           <Breadcrumb>
@@ -187,7 +191,7 @@ const Name = () => {
                   <div className="listing-info-name">
                     <div className="info-name d-flex">
                       <div className="thumb">
-                        <img  src={getStrapiMedia(business.attributes.business_logo)} />
+                        <img src={getStrapiMedia(business.attributes.business_logo)} />
                         {/* <Image
                           src={getStrapiMedia(business.attributes.business_logo)}
                           alt="Listing Image"

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import Head from "next/head"
 import Layout from "../../components/layout/Layout";
 import { fetchAPI } from "../../lib/api";
 import { getStrapiMedia } from "../../lib/media";
@@ -21,6 +22,10 @@ const Brand = () => {
   console.log("All Business", businesses)
   return (
     <Layout>
+      <Head>
+        <title>Brands, Find Flooring Services</title>
+        <meta property="title" content="Find Top-Rated Brands Flooring Services - Flooring Metaverse" />
+      </Head>
       <div className="home-header">
         <div className="home-header-content">
           <div className="home-header-body">

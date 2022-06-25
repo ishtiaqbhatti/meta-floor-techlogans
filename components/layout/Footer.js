@@ -73,16 +73,16 @@ const Footer = ({ cityInfo }) => {
             <div className="col-lg-3 col-md-12 col-12">
               <h6 className="footer-menu-header mt-4 px-3">IMPORTANTS LINKS</h6>
               <p className="footer-menu-content px-3">
-                <Link href={`/hardwood/hardwood-floor-store`}>
+                <Link href={`/ca/${cityInfo.province_id}/${cityInfo.city}/hardwood-floor-store`}>
                   <a className="footer-menu-item">HARDWOOD</a>
                 </Link>
-                <Link href={`/laminate/laminate-floor-store`}>
+                <Link href={`/ca/${cityInfo.province_id}/${cityInfo.city}/laminate-floor-store`}>
                   <a className="footer-menu-item">LAMINATE</a>
                 </Link>
-                <Link href={`/vinyl/vinyl-floor-store`}>
+                <Link href={`/ca/${cityInfo.province_id}/${cityInfo.city}/vinyl-floor-store`}>
                   <a className="footer-menu-item">VINYL</a>
                 </Link>
-                <Link href={`/tile/tile-store`}>
+                <Link href={`/ca/${cityInfo.province_id}/${cityInfo.city}/tile-store`}>
                   <a className="footer-menu-item">TILE</a>
                 </Link>
               </p>

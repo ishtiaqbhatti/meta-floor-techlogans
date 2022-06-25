@@ -10,6 +10,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import SelectSearch, { fuzzySearch } from 'react-select-search';
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+import Head from "next/head"
 
 import { getSlug } from "../components/utils";
 import http from "../components/http";
@@ -319,6 +320,10 @@ const AddListing = ({ candaCity }) => {
 
   return (
     <Layout>
+      <Head>
+        <title>Add Listing Flooring Services  - Flooring Metaverse</title>
+      </Head>
+
       {/* {loader && <PreLoader />}
       {loader == false &&  */}
       <div className="banner_location text-center">
