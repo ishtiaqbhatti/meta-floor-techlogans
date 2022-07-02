@@ -31,9 +31,9 @@ const BrandComponent = ({ category, city }) => {
     // })();
   }, [city]);
   return (
-    <section className="products-area pt-50 pb-100">
+    <section className="products-area my-3">
       <div className="container">
-        <div className="products-filter mb-30">
+        <div className="products-filter">
           <div className="row justify-content-between align-items-center">
             <div className="col-lg-5">
               <div className="sort-dropdown d-flex align-items-center">

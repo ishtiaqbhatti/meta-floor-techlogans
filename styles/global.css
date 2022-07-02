@@ -43,6 +43,13 @@ html {
   margin-bottom: 0px;
 }
 
+.listing-item {
+  box-shadow: 0px 0px 20px 6px rgba(184, 168, 168, 0.75);
+  border-radius: 10px;
+  border: 1px solid silver;
+  min-height: 385px !important;
+}
+
 .c-pointer {
   cursor: pointer;
 }
@@ -174,6 +181,21 @@ img.mfp-img {
 .banner_location h2,
 .banner_location p {
   color: #fff !important;
+  font-size: 1.5em;
+}
+
+.listing_footer {
+  text-align: center;
+  font-size: 17px;
+  color: #19b5bc;
+  font-weight: 400;
+}
+
+.mobile_menu .login-btn {
+  color: #fff !important;
+  border-radius: 10px !important;
+  width: 150px;
+  margin: auto;
 }
 
 .main_heading {
@@ -244,4 +266,68 @@ img.mfp-img {
 
 .select-search_select {
   position: absolute !important;
+}
+
+.listing-content h3 {
+  font-weight: 900;
+  color: #241B1B;
+}
+
+.loading_section {
+  position: fixed;
+  width: 200px;
+  height: 200px;
+  top: 50%;
+  left: 50%;
+}
+
+.main_category {
+  font-size: 20px;
+  font-weight: 900;
+}
+
+@media screen and (max-width:768px) {
+  .top_deliveries {
+    width: 18px !important;
+    height: 33px !important;
+    padding: 0px !important
+  }
+
+  .inner_text {
+    margin-top: -5rem !important;
+    margin-bottom: 3rem;
+    padding-top: 2rem;
+  }
+
+}
+
+.text_section {
+  display: flex;
+  justify-content: center;
+}
+
+.inner_text {
+  width: 100%;
+  height: 100%;
+  margin-top: 7rem;
+}
+
+.main_title_intro {
+  font-size: 16px;
+  font-weight: 400;
+  color: #19b5bc;
+  letter-spacing: 1.6px;
+  color: #241B1B;
+  font-family: "Lato", Sans-serif;
+}
+
+.top_listing_busniess h3 {
+  color: #0d0d0d;
+  margin-bottom: 1.5rem;
+  font-family: 'Lato', sans-serif;
+  font-weight: 500;
+}
+
+.top_heading {
+  font-weight: 400 !important;
 }

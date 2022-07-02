@@ -8,11 +8,32 @@ const Footer = ({ cityInfo }) => {
   return (
     <footer className="footer-area ">
       <div className="footer-image">
-        <img
-          src="/assets/images/flooring-banner.jpg"
-          width="100%"
-          alt="footer"
-        />
+        <div className="container py-5">
+          <div className="row">
+            <div className="col-lg-6 col-md-6 col-12">
+              <div className="footer_upper_section text_section mt-3">
+                <div className="inner_text">
+                  <h2>
+                    Find Flooring Stores & Contractors Near You
+                  </h2>
+                  <Link href="/ca">
+                    <a className="btn-root register-btn">
+                      Learn More
+                    </a>
+                  </Link>
+                  <button >
+
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div className="col-lg-6 col-md-6 col-12">
+              <div className="footer_upper_section mt-3">
+                <img src="/assets/images/flooring.webp" alt="" className="rounded img-fluid" />
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
       <div className="footer_inside py-5">
         <div className="container-fluid ">

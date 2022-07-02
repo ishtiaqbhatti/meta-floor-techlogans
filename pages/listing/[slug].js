@@ -7,10 +7,93 @@ import ListingDetailsRight from "../../components/ListingDetailsRight";
 import Layout from "../../components/layout/Layout";
 import { getStrapiMedia } from "../../lib/media";
 import { fetchAPI } from "../../lib/api";
+import { Rating } from 'react-simple-star-rating'
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import http from "../../components/http";
+import { Rings } from 'react-loader-spinner'
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+import axios from "axios";
+import dateFormat from "dateformat";
+import qs from 'qs';
+import Head from "next/head"
+
+
+// import { DynamicStar } from 'react-dynamic-star';
+import { AiTwotoneStar, AiOutlineStar } from 'react-icons/ai'
 
 const Name = () => {
   const { query } = useRouter()
   const [business, setBusiness] = useState("")
+  const [allReviews, setAllReviews] = useState("")
+  const [rating, setRating] = useState(0)
+  const [loading, setLoading] = useState(false)
+  const [starReview, setStarReview] = useState("")
+  const router = useRouter()
+
+  const actualRating = rating / 20;
+  console.log("ACTUAL RATING");
+  console.log("rating", allReviews.data)
+
+  const handleRating = (rate) => {
+    setRating(rate)
+  }
+
+
+  function formatMyDate(value, locale = 'en-GB') {
+    return new Date(value).toLocaleDateString(locale);
+  }
+  const handleSubmit = async (values, { resetForm }) => {
+    console.log("SUBMITTING", values)
+    setLoading(true);
+
+    const { name, email, message } = values;
+
+    const data = {
+      "Name": name,
+      "Email": email,
+      "Message": message,
+      // "date": formatMyDate(date),
+      "business": business?.id,
+      "rating": actualRating,
+    }
+
+    console.log("DATA", data)
+
+
+    // if (!errorFlag) {
+    // await axios.post('/api/business-review', {
+    //   "data": data
+    // })
+    const login = await http.post(`/api/auth/local`, {
+      identifier: "freelance1773@gmail.com",
+      password: "greenland712",
+      // identifier: process.env.LOGIN_EMAIL_PROD,
+      // password: process.env.LOGIN_PASSWORD_PROD,
+    })
+    console.log("DATA", data)
+    await http.post('/api/business-reviews', {
+      "data": data
+    }, {
+      headers: {
+        Authorization: `Bearer ${login.data.jwt}`
+      }
+    })
+    setLoading(false);
+    toast('Review Added Sucessfully', {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+    resetForm();
+    router.reload(window.location.pathname)
+  }
 
   useEffect(() => {
     (async () => {
@@ -20,12 +103,68 @@ const Name = () => {
         },
         populate: "*",
       });
-      setBusiness(businessesRes.data[0]);
+
+      // console.log("BUSINESS", business)
+      if (businessesRes?.data[0]) {
+        setBusiness(businessesRes.data[0]);
+
+        (async () => {
+          const reviewRes = await fetchAPI(`/business-reviews`, {
+            filters: {
+              business: businessesRes.data[0].id
+            },
+            populate: "*",
+          });
+          setAllReviews(reviewRes);
+        })();
+      }
+
     })();
+
   }, []);
+
+  // All Reviews Calculation
+  const totalReviews = allReviews?.data?.length
+  const result = allReviews?.data?.reduce((total, currentValue) => total = total + currentValue.attributes?.rating, 0) / totalReviews;
+  const totalStars = 5;
+
+
+
+  const validationSchema = Yup.object({
+    name: Yup.string()
+      .min(3, "Name must be three or more characters")
+      .required("Name is required"),
+    email: Yup.string()
+      .email("Invalid email format")
+      .required("Email is required"),
+    message: Yup.string().required("Message is required"),
+  });
+  const initialValues = {
+    name: "",
+    email: "",
+    message: "",
+  };
+
+  const formik = useFormik({
+    initialValues,
+    onSubmit: handleSubmit,
+    // onSubmit: function (values) {
+    //   console.log("HELLO", values)
+    // },
+    // validate,
+    validationSchema,
+  });
+
+
+
+
 
   return (
     <Layout>
+      <Head>
+        <title>{business?.attributes?.name}</title>
+        <meta property="title" content={business?.attributes?.description} />
+      </Head>
       <div className="bread">
         <div className="container">
           <Breadcrumb>
@@ -52,12 +191,13 @@ const Name = () => {
                   <div className="listing-info-name">
                     <div className="info-name d-flex">
                       <div className="thumb">
-                        <Image
+                        <img src={getStrapiMedia(business.attributes.business_logo)} />
+                        {/* <Image
                           src={getStrapiMedia(business.attributes.business_logo)}
                           alt="Listing Image"
                           width="270px"
                           height="195px"
-                        />
+                        /> */}
                       </div>
                       <div className="content">
                         <span className="cat-btn">
@@ -76,24 +216,14 @@ const Name = () => {
                   <div className="listing-info-content">
                     <div className="content">
                       <ul className="ratings ratings-three">
-                        <li>
-                          <i className="flaticon-star-1" />
-                        </li>
-                        <li>
-                          <i className="flaticon-star-1" />
-                        </li>
-                        <li>
-                          <i className="flaticon-star-1" />
-                        </li>
-                        <li>
-                          <i className="flaticon-star-1" />
-                        </li>
-                        <li>
-                          <i className="flaticon-star-1" />
-                        </li>
+                        {[...new Array(totalStars)].map((arr, index) => {
+                          return index < result ? <span className="active_star">
+                            <AiTwotoneStar size={14} />
+                          </span> : <span><AiOutlineStar size={14} /></span>;
+                        })}
                         <li>
                           <span className="ml-2">
-                            <a href="#">(02 Reviews)</a>
+                            <a >({totalReviews} Reviews)</a>
                           </span>
                         </li>
                       </ul>
@@ -145,14 +275,9 @@ const Name = () => {
               <div className="col-lg-8">
                 <div className="listing-details-wrapper listing-details-wrapper-one">
                   <div className="listing-content mb-20 wow fadeInUp">
-                    <h3 className="title mt-4">Popular Business in {business.attributes.canada_city?.data?.attributes.city_ascii}</h3>
+                    <h3 className="title mt-4">Popular Business in {business?.attributes?.city} of {business?.attributes?.state}</h3>
                     <p>
                       {business.attributes.description}
-                    </p>
-                    <p className="para">
-                      Eros senectus etiam sed habitasse arcu habitant nulla nam
-                      amet sociis leo suspendisse in dignissim litora venenatis
-                      torquent tempor dapibus ridiculus consectetuer nece sagittis{" "}
                     </p>
                   </div>
                   <div className="description-wrapper mb-45">
@@ -161,15 +286,6 @@ const Name = () => {
                         <Tab.Container defaultActiveKey={"reviews"}>
                           <div className="description-tabs">
                             <Nav as="ul" className="nav nav-tabs">
-                              {/* <Nav.Item as="li">
-                                <Nav.Link
-                                  as="a"
-                                  href="#products"
-                                  eventKey="products"
-                                >
-                                  Products
-                                </Nav.Link>
-                              </Nav.Item> */}
                               <Nav.Item as="li">
                                 <Nav.Link
                                   as="a"
@@ -186,156 +302,133 @@ const Name = () => {
                               <div className="products-review-wrapper mb-25">
                                 <div className="products-review-area mb-45">
                                   <ul className="review-list">
-                                    <li className="review">
-                                      <div className="review-thumb">
-                                        <img
-                                          src="/assets/images/products/review-thumb-1.jpg"
-                                          alt="review thumb"
-                                        />
-                                      </div>
-                                      <div className="review-content">
-                                        <h4>John F. Medina</h4>
-                                        <span className="date">25 May 2021</span>
-                                        <ul className="ratings ratings-four">
-                                          <li className="star">
-                                            <i className="flaticon-star-1" />
-                                          </li>
-                                          <li className="star">
-                                            <i className="flaticon-star-1" />
-                                          </li>
-                                          <li className="star">
-                                            <i className="flaticon-star-1" />
-                                          </li>
-                                          <li className="star">
-                                            <i className="flaticon-star-1" />
-                                          </li>
-                                          <li className="star">
-                                            <i className="flaticon-star-1" />
-                                          </li>
-                                        </ul>
-                                        <p>
-                                          Sed ut perspiciatis unde omnis iste
-                                          natus error sit voluptatem accusantium
-                                          doloremque laudantium, totam rem
-                                          aperiam, eaque ipsa quae ab illo
-                                          inventore veritatis et quasi architecto
-                                          beatae vitae dicta sunt explicabo.
-                                        </p>
-                                        <a href="#" className="reply">
-                                          Reply
-                                        </a>
-                                      </div>
-                                    </li>
-                                    <li className="review">
-                                      <div className="review-thumb">
-                                        <img
-                                          src="/assets/images/products/review-thumb-2.jpg"
-                                          alt="review thumb"
-                                        />
-                                      </div>
-                                      <div className="review-content">
-                                        <h4>John F. Medina</h4>
-                                        <span className="date">25 May 2021</span>
-                                        <ul className="ratings ratings-five">
-                                          <li className="star">
-                                            <i className="flaticon-star-1" />
-                                          </li>
-                                          <li className="star">
-                                            <i className="flaticon-star-1" />
-                                          </li>
-                                          <li className="star">
-                                            <i className="flaticon-star-1" />
-                                          </li>
-                                          <li className="star">
-                                            <i className="flaticon-star-1" />
-                                          </li>
-                                          <li className="star">
-                                            <i className="flaticon-star-1" />
-                                          </li>
-                                        </ul>
-                                        <p>
-                                          Sed ut perspiciatis unde omnis iste
-                                          natus error sit voluptatem accusantium
-                                          doloremque laudantium, totam rem
-                                          aperiam, eaque ipsa quae ab illo
-                                          inventore veritatis et quasi architecto
-                                          beatae vitae dicta sunt explicabo.
-                                        </p>
-                                        <a href="#" className="reply">
-                                          Reply
-                                        </a>
-                                      </div>
-                                    </li>
+
+                                    {allReviews?.data?.length != 0 && (
+                                      <>
+                                        {allReviews.data?.map((review) => {
+
+                                          const activeStars = review?.attributes?.rating;
+                                          return (
+                                            <>
+                                              <li className="review">
+                                                <div className="review-thumb">
+                                                  <img
+                                                    src="/assets/images/avatar.png"
+                                                    alt="review thumb"
+                                                  />
+                                                </div>
+                                                <div className="review-content">
+                                                  <h4>{review?.attributes?.Name}</h4>
+                                                  {[...new Array(totalStars)].map((arr, index) => {
+                                                    return index < activeStars ? <span className="active_star">
+                                                      <AiTwotoneStar />
+                                                    </span> : <AiOutlineStar />;
+                                                  })}
+
+                                                  {/* <Rating ratingValue={review?.attributes?.rating} /> */}
+                                                  {/* <DynamicStar rating={review?.attributes?.rating} outlined /> */}
+                                                  <p className="date">
+                                                    {dateFormat(review?.attributes?.createdAt, "dd, mmmm, yyyy")}
+                                                  </p>
+
+                                                  <p>
+                                                    {review?.attributes?.Message}
+                                                  </p>
+
+                                                </div>
+                                              </li>
+                                            </>
+                                          )
+                                        })}
+
+                                      </>
+                                    )}
+
+
                                   </ul>
                                 </div>
                                 <div className="products-review-form">
                                   <h4 className="title">Leave Your Reviews</h4>
-                                  <form onSubmit={(e) => e.preventDefault()}>
-                                    <div className="row">
-                                      <div className="col-lg-12">
-                                        <div className="form_group">
-                                          <ul className="ratings mb-20">
-                                            <li>
-                                              <span>Your Rating</span>
-                                            </li>
-                                            <li className="star">
-                                              <i className="flaticon-star-1" />
-                                            </li>
-                                            <li className="star">
-                                              <i className="flaticon-star-1" />
-                                            </li>
-                                            <li className="star">
-                                              <i className="flaticon-star-1" />
-                                            </li>
-                                            <li className="star">
-                                              <i className="flaticon-star-1" />
-                                            </li>
-                                            <li className="star">
-                                              <i className="flaticon-star-1" />
-                                            </li>
-                                          </ul>
-                                        </div>
-                                      </div>
-                                      <div className="col-lg-6">
-                                        <div className="form_group">
-                                          <input
-                                            type="text"
-                                            className="form_control"
-                                            placeholder="Full Name"
-                                            name="name"
-                                            required=""
-                                          />
-                                        </div>
-                                      </div>
-                                      <div className="col-lg-6">
-                                        <div className="form_group">
-                                          <input
-                                            type="email"
-                                            className="form_control"
-                                            placeholder="Email Address"
-                                            name="email"
-                                            required=""
-                                          />
-                                        </div>
-                                      </div>
-                                      <div className="col-lg-12">
-                                        <div className="form_group">
-                                          <textarea
-                                            className="form_control"
-                                            placeholder="Write Message"
-                                            name="comment"
-                                          />
-                                        </div>
-                                      </div>
-                                      <div className="col-lg-12">
-                                        <div className="form_group">
-                                          <button className="main-btn">
-                                            Submit
-                                          </button>
-                                        </div>
-                                      </div>
+                                  {loading ? (
+                                    <div className="loading_section">
+                                      <Rings color="#00BFFF" height={130} width={130} />
                                     </div>
-                                  </form>
+                                  ) : (
+                                    <form onSubmit={formik.handleSubmit}>
+                                      <div className="row">
+                                        <div className="col-lg-12">
+                                          <div className="form_group">
+                                            <ul className="ratings mb-20">
+                                              <li>
+                                                <span>Your Rating</span>
+                                              </li>
+                                              <Rating onClick={handleRating} ratingValue={rating} />
+                                            </ul>
+                                          </div>
+                                        </div>
+                                        <div className="col-lg-6">
+                                          <div className="form_group">
+                                            <input
+                                              type="text"
+                                              className="form_control"
+                                              placeholder="Full Name"
+                                              name="name"
+                                              autoComplete="off"
+                                              onChange={formik.handleChange}
+                                              onBlur={formik.handleBlur}
+                                              value={formik.values.name}
+                                              required
+                                            />
+                                          </div>
+                                          {formik.touched.name && formik.errors.name ? (
+                                            <div className="error">{formik.errors.name}</div>
+                                          ) : null}
+                                        </div>
+                                        <div className="col-lg-6">
+                                          <div className="form_group">
+                                            <input
+                                              type="email"
+                                              className="form_control"
+                                              placeholder="Email Address"
+                                              name="email"
+                                              onChange={formik.handleChange}
+                                              onBlur={formik.handleBlur}
+                                              value={formik.values.email}
+                                              required
+                                            />
+                                          </div>
+                                          {formik.touched.email && formik.errors.email ? (
+                                            <div className="error">{formik.errors.email}</div>
+                                          ) : null}
+                                        </div>
+                                        <div className="col-lg-12">
+                                          <div className="form_group">
+                                            <textarea
+                                              className="form_control"
+                                              placeholder="Write Message"
+                                              name="message"
+                                              autoComplete="off"
+                                              onChange={formik.handleChange}
+                                              onBlur={formik.handleBlur}
+                                              value={formik.values.message}
+                                              required
+                                            />
+                                          </div>
+                                          {formik.touched.message && formik.errors.message ? (
+                                            <div className="error">{formik.errors.message}</div>
+                                          ) : null}
+                                        </div>
+                                        <div className="col-lg-12">
+                                          <div className="form_group">
+                                            <button className="main-btn" type="submit">
+                                              Submit
+                                            </button>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </form>
+                                  )}
+
                                 </div>
                               </div>
                             </Tab.Pane>
@@ -346,9 +439,10 @@ const Name = () => {
                   </div>
                 </div>
               </div>
-
             </div>
           </div>
+          <ToastContainer />
+
         </section>
       }
     </Layout>
@@ -380,6 +474,15 @@ const Name = () => {
 //     props: { business: businessesRes.data[0] },
 //     revalidate: 1,
 //   };
+// }
+
+// export const getStaticProps = async () => {
+//   const res = await fetchAPI(`/business-reviews`);
+//   return {
+//     props: {
+//       reviews: res
+//     }
+//   }
 // }
 
 export default Name;

@@ -13,15 +13,18 @@ import {
 } from "./Menu";
 import RoomIcon from "@mui/icons-material/Room";
 import SearchIcon from "@mui/icons-material/Search";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import { fetchAPI } from "../../lib/api";
 import { getSlug } from "../utils";
+import MainSearch from "./mainSearch";
 
 const MobileMenu = ({ category, cityInfo, setInfo }) => {
   const [toggle, setToggle] = useState(false);
   const [activeMenu, setActiveMenu] = useState("");
   const activeMenuSet = (value) =>
-      setActiveMenu(activeMenu === value ? "" : value),
+    setActiveMenu(activeMenu === value ? "" : value),
     activeLi = (value) =>
       value === activeMenu ? { display: "block" } : { display: "none" };
   const router = useRouter();
@@ -38,7 +41,15 @@ const MobileMenu = ({ category, cityInfo, setInfo }) => {
     });
     const cityInfo = cityInfoItems.data[0];
     if (cityInfo == undefined) {
-      alert("Please type a city name correctly");
+      toast('Please type a city name correctly', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
     }
     const city = getSlug(cityInfo.attributes.city_ascii);
     const province_id = cityInfo.attributes.province_id.toLowerCase();
@@ -154,7 +165,15 @@ const MobileMenu = ({ category, cityInfo, setInfo }) => {
                         </span>
                       </li>
                       <Brands cityInfo={cityInfo} />
-                      <Blog />
+                      {/* <Blog /> */}
+                      <li className="menu-item has-children">
+                        <div className="mr-5 mt-1 mobile_menu">
+                          <Link href="/listing-name">
+                            <a className="btn-root login-btn">+ ADD LISTING</a>
+                          </Link>
+                        </div>
+                      </li>
+
                     </ul>
                   </nav>
                 </div>
@@ -186,6 +205,7 @@ const MobileMenu = ({ category, cityInfo, setInfo }) => {
           </div>
         </div>
       </div>
+      <ToastContainer />
       <div className="header-top">
         <div className="container-fluid">
           <div
@@ -194,36 +214,38 @@ const MobileMenu = ({ category, cityInfo, setInfo }) => {
           >
             <form onSubmit={getDeliveryUrl}>
               <div className="row">
-                <div className="col-lg-9 col-md-12 col-sm-12 m-3">
-                  <div className="d-flex justify-content-around align-content-center align-items-center">
-                    <strong className="mx-4">Browsing Services For: </strong>
-                    <div
-                      className="form_group justify-content-center align-items-center"
-                      style={{ width: "50%" }}
-                    >
-                      <i style={{ zIndex: 1 }}>
-                        <RoomIcon />
-                      </i>
+                <div className="col-lg-9 col-md-12 col-sm-12 col-12 mx-auto py-4">
+                  <div className="row">
+                    <div className="col-lg-3 col-md-3 col-12">
+                      <div className="my-3">
+                        <strong className="mx-4 pt-5">Browsing Services For: </strong>
+                      </div>
+                    </div>
+                    <div className="col-md-6 col-lg-6 col-8">
+                      <div
+                        className="form_group justify-content-center align-items-center"
+                        style={{ width: "100%" }}
+                      >
+                        <i style={{ zIndex: 1 }}>
+                          <RoomIcon />
+                        </i>
+                        <input
+                          type="text"
+                          className="form_control"
+                          placeholder="City Name"
+                          name="location"
+                          required
+                        />
+                      </div>
+                    </div>
+                    <div className="col-md-3 col-lg-3 col-4 mt-2">
                       <input
-                        type="text"
-                        className="form_control"
-                        placeholder="City Name"
-                        name="location"
-                        required
+                        type="submit"
+                        value="Search"
+                        className="btn-root register-btn"
                       />
                     </div>
-                    <input
-                      type="submit"
-                      value="Search"
-                      className="btn-root register-btn mx-1"
-                    />
-                  </div>
-                </div>
-                <div className="col-lg-2 col-md-12 col-sm-12 mt-4">
-                  <div className="d-flex justify-content-around align-content-center align-items-center">
-                    <Link href="/listing-name">
-                      <a className="btn-root login-btn">+ ADD LISTING</a>
-                    </Link>
+
                   </div>
                 </div>
               </div>
@@ -231,6 +253,7 @@ const MobileMenu = ({ category, cityInfo, setInfo }) => {
           </div>
         </div>
       </div>
+
     </header>
   );
 };

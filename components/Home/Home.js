@@ -11,6 +11,7 @@ const HomeComponent = () => {
   const [topBusinesses, setTopBusinesses] = useState("");
   const [topBrands, setTopBrands] = useState("");
   const [businesses, setBusinesses] = useState("");
+
   useEffect(() => {
     (async () => {
       const businesses = await fetchAPI("/businesses", {
@@ -18,9 +19,7 @@ const HomeComponent = () => {
       });
       const brands = await fetchAPI("/businesses", {
         filters: {
-          services: {
-            name: "Brand",
-          },
+          services: 6,
         },
         populate: "*",
       });
@@ -42,11 +41,11 @@ const HomeComponent = () => {
               alt="top-deliveries"
               width="100%"
               height="100%"
+              className="top_deliveries"
             />
             <div style={{ display: "flex", flexWrap: "wrap" }}>
-              <h2 className="MuiTypography-root MuiTypography-h2">
-                <span className="delivery-cat">TOP </span>&nbsp;
-                <span className="delivery-text">Flooring Brands</span>
+              <h2 className="MuiTypography-root MuiTypography-h2 top_heading">
+                TOP Flooring Brands
               </h2>
             </div>
           </div>
@@ -55,45 +54,19 @@ const HomeComponent = () => {
           {topBrands &&
             topBrands.map((brand, index) => {
               return (
-                <div className="col-lg-3 col-md-4 col-sm-6" key={index}>
+                <div className="col-lg-3 col-md-4 col-sm-6" key={brand.id}>
                   <div className="listing-item listing-grid-item-two mb-30">
                     <div className="listing-thumbnail">
                       <Link href={`/listing/${brand.attributes.slug}`}>
-                        <a className="m-5">
+                        <a className="">
                           <Image
                             src={getStrapiMedia(brand.attributes.business_logo)}
                             alt="Listing Image"
-                            width="270px"
-                            height="195px"
+                            width="400px"
+                            height="200px"
                           />
                         </a>
                       </Link>
-                      {/* <a href="#" className="cat-btn">
-                        <i className="flaticon-chef" />
-                      </a>
-                      <span className="featured-btn">Featured</span>
-                      <ul className="ratings ratings-five">
-                        <li className="star">
-                          <i className="flaticon-star-1" />
-                        </li>
-                        <li className="star">
-                          <i className="flaticon-star-1" />
-                        </li>
-                        <li className="star">
-                          <i className="flaticon-star-1" />
-                        </li>
-                        <li className="star">
-                          <i className="flaticon-star-1" />
-                        </li>
-                        <li className="star">
-                          <i className="flaticon-star-1" />
-                        </li>
-                        <li>
-                          <span>
-                            <a href="#">(01 Reviews)</a>
-                          </span>
-                        </li>
-                      </ul> */}
                     </div>
                     <div className="listing-content">
                       <h3 className="title">
@@ -108,23 +81,16 @@ const HomeComponent = () => {
                             {brand.attributes.phone_number}
                           </a>
                         )}
-                        {/* <span className="status st-open">Open</span> */}
                       </span>
                       <div className="listing-meta">
                         <ul>
                           <li>
                             <span>
                               <i className="ti-location-pin" />
-                              {brand.attributes.canada_city.data.attributes.city_ascii.toUpperCase()}
-                              , CANADA
+                              {brand.attributes && brand.attributes.address}
+
                             </span>
                           </li>
-                          {/* <li>
-                            <span>
-                              <i className="ti-heart" />
-                              <a href="#">Save</a>
-                            </span>
-                          </li> */}
                         </ul>
                       </div>
                     </div>
@@ -143,12 +109,9 @@ const HomeComponent = () => {
               width="100%"
               height="100%"
             />
-            <div style={{ display: "flex", flexWrap: "wrap" }}>
-              <h2 className="MuiTypography-root MuiTypography-h2">
-                <span className="delivery-cat">Top</span>&nbsp;
-                <span className="delivery-text">
-                  Services / Contractors from that location
-                </span>
+            <div >
+              <h2 className="MuiTypography-root MuiTypography-h2 top_heading">
+                Top Services / Contractors from that location
               </h2>
             </div>
           </div>
@@ -161,12 +124,12 @@ const HomeComponent = () => {
                   <div className="listing-item listing-grid-item-two mb-30">
                     <div className="listing-thumbnail">
                       <Link href={`/listing/${brand.attributes.slug}`}>
-                        <a className="m-5">
+                        <a className="">
                           <Image
                             src={getStrapiMedia(brand.attributes.business_logo)}
                             alt="Listing Image"
-                            width="270px"
-                            height="195px"
+                            width="400px"
+                            height="200px"
                           />
                         </a>
                       </Link>
@@ -213,11 +176,8 @@ const HomeComponent = () => {
               height="100%"
             />
             <div style={{ display: "flex", flexWrap: "wrap" }}>
-              <h2 className="MuiTypography-root MuiTypography-h2">
-                <span className="delivery-cat">Everything </span>&nbsp;
-                <span className="delivery-text">
-                  you need for your floors and more
-                </span>
+              <h2 className="MuiTypography-root MuiTypography-h2 top_heading">
+                Everything you need for your floors and more
               </h2>
             </div>
           </div>
@@ -230,12 +190,12 @@ const HomeComponent = () => {
                   <div className="listing-item listing-grid-item-two mb-30">
                     <div className="listing-thumbnail">
                       <Link href={`/listing/${brand.attributes.slug}`}>
-                        <a className="m-5">
+                        <a className="">
                           <Image
                             src={getStrapiMedia(brand.attributes.business_logo)}
                             alt="Listing Image"
-                            width="270px"
-                            height="195px"
+                            width="400px"
+                            height="200px"
                           />
                         </a>
                       </Link>

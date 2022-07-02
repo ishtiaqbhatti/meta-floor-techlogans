@@ -32,7 +32,7 @@ const Capage = ({ candaCity }) => {
                         </Breadcrumb.Item>
                         <Breadcrumb.Item >
                             <Link href="/ca">
-                                States
+                                Provinces
                             </Link>
 
                         </Breadcrumb.Item>
@@ -48,7 +48,7 @@ const Capage = ({ candaCity }) => {
             <div className="ca_location py-5">
                 <div className="container">
                     <h2 className='text-center main_heading'>
-                        All States
+                        All Provinces
                     </h2>
                     <div className="row my-3">
                         {uniqueCities && uniqueCities.map((city) => {

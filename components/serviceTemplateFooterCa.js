@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import { toCamelCase } from "./utils";
 import { Accordion } from "react-bootstrap";
 
-const ServiceTemplateFooter = () => {
+const ServiceTemplateFooterCa = () => {
   const [state, setState] = useState("");
-  const [location, setLocation] = useState("");
+  const [location, setLocation] = useState("Canada");
   const [service, setService] = useState("");
   const [accordionActive, setAccordionActive] = useState("");
   const setAccordion = (value) => (value === accordionActive ? "" : value),
@@ -20,7 +20,6 @@ const ServiceTemplateFooter = () => {
     } else {
       setState(toCamelCase(state));
     }
-    setLocation(toCamelCase(url[url.length - 2]));
     const service = url[url.length - 1];
     let serviceItems = service.split("-");
     let serviceUrl = "";
@@ -146,4 +145,4 @@ const ServiceTemplateFooter = () => {
   );
 };
 
-export default ServiceTemplateFooter;
+export default ServiceTemplateFooterCa;
