@@ -83,7 +83,7 @@ const HomeComponent = () => {
               Help potential customers find you by adding your business to our
               flooring directory. It’s free to join!
             </span>
-            <Link href=""> Add Your Business</Link>
+            <Link href="/listing-name"> Add Your Business</Link>
           </div>
         </section>
       </div>
@@ -172,13 +172,14 @@ const HomeComponent = () => {
               </div>
             </div>
           </div>
+
           <div className="row">
             {topBrands &&
               topBrands.map((brand, index) => {
                 return (
                   <div className="col-lg-3 col-md-4 col-sm-6" key={brand.id}>
                     <div className="listing-item listing-grid-item-two mb-30">
-                      <div className="listing-thumbnail">
+                      <div className="listing-thumbnail ">
                         <Link href={`/listing/${brand.attributes.slug}`}>
                           <a className="">
                             <Image
@@ -191,7 +192,9 @@ const HomeComponent = () => {
                             />
                           </a>
                         </Link>
+                        <span className="featured-text">featured</span>
                       </div>
+
                       <div className="listing-content">
                         <h3 className="title">
                           <Link href={`/listing/${brand.attributes.slug}`}>
@@ -259,6 +262,7 @@ const HomeComponent = () => {
                             />
                           </a>
                         </Link>
+                        <span className="featured-text">featured</span>
                       </div>
                       <div className="listing-content">
                         <h3 className="title">
@@ -328,6 +332,7 @@ const HomeComponent = () => {
                             />
                           </a>
                         </Link>
+                        <span className="featured-text">featured</span>
                       </div>
                       <div className="listing-content">
                         <h3 className="title">

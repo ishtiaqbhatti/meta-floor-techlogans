@@ -3660,6 +3660,15 @@ h3.title {
 .listing-grid-one .listing-thumbnail img {
   border-radius: 5px 5px 0px 0px;
 }
+.listing-thumbnail .featured-text {
+  background-color: #4675a4;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: #ffffff;
+  padding: 3px 10px;
+  border-radius: 4px;
+}
 
 .listing-grid-one .listing-thumbnail .thumbnail-meta {
   background-color: #ffd74e;
@@ -7129,14 +7138,16 @@ h3.title {
 .footer-menu-content {
   display: flex;
   margin-top: 16px;
-  margin-left: 16px;
   flex-direction: column;
 }
-
+.footer-social-icons {
+  margin-right: 10px;
+}
 .footer-menu-item {
   margin: 4px;
   font-size: 14pt;
   cursor: pointer;
+  font-weight: 600;
 }
 
 .copyright-area {
