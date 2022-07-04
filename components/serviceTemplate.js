@@ -11,6 +11,7 @@ import { fetchAPI } from "../lib/api";
 import Image from 'next/image'
 import Head from 'next/head'
 import { getStrapiMedia } from "../lib/media"
+import { AiTwotoneStar, AiOutlineStar } from 'react-icons/ai'
 
 const ServiceTemplate = ({ category }) => {
   const { query } = useRouter()
@@ -59,6 +60,9 @@ const ServiceTemplate = ({ category }) => {
     })();
   }, [])
 
+
+  const totalStar = 5
+  const activeStar = 4
 
 
   console.log("Top Business", topBusinesses)
@@ -139,24 +143,27 @@ const ServiceTemplate = ({ category }) => {
                                     <a>{brand.attributes.name}</a>
                                   </Link>
                                 </h3>
-                                <span className="phone-meta">
-                                  <i className="ti-tablet" />
-                                  {brand.attributes.phone_number && (
-                                    <a href={`tel:${brand.attributes.phone_number}`}>
-                                      {brand.attributes.phone_number}
-                                    </a>
-                                  )}
-                                </span>
+
                                 <div className="listing-meta">
                                   <ul>
                                     <li>
-                                      <span>
-                                        <i className="ti-location-pin" />
+                                      <span className="card_address">
+                                        {/* <i className="ti-location-pin" /> */}
                                         {brand.attributes && brand.attributes.address}
-                                        , CANADA
+
                                       </span>
                                     </li>
                                   </ul>
+                                  <span className="reviews">
+                                    {[...new Array(totalStar)].map((arr, index) => {
+                                      return index < activeStar ? <span className="active_star">
+                                        <AiTwotoneStar size={24} />
+                                      </span> : <span><AiOutlineStar size={24} /></span>;
+                                    })}
+
+                                    (4.0) | 53 Reviews
+
+                                  </span>
                                 </div>
                               </div>
                             </div>
