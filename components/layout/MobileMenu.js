@@ -15,6 +15,7 @@ import RoomIcon from "@mui/icons-material/Room";
 import SearchIcon from "@mui/icons-material/Search";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Autocomplete from "react-google-autocomplete"
 
 import { fetchAPI } from "../../lib/api";
 import { getSlug } from "../utils";
@@ -28,9 +29,18 @@ const MobileMenu = ({ category, cityInfo, setInfo }) => {
     activeLi = (value) =>
       value === activeMenu ? { display: "block" } : { display: "none" };
   const router = useRouter();
+
+  const [address, setAddress] = useState();
+
+  console.log('Address', address)
+
   const getDeliveryUrl = async (e) => {
     e.preventDefault();
-    const value = e.target.location.value;
+    localStorage.setItem('mainCityName', address);
+    const currentCity = localStorage.getItem('mainCityName');
+    console.log("Local Strodge", currentCity)
+    const value = currentCity
+    console.log("All Value", value)
     const cityInfoItems = await fetchAPI("/canada-cities", {
       filters: {
         city_ascii: {
@@ -50,18 +60,20 @@ const MobileMenu = ({ category, cityInfo, setInfo }) => {
         draggable: true,
         progress: undefined,
       });
-    }
-    const city = getSlug(cityInfo.attributes.city_ascii);
-    const province_id = cityInfo.attributes.province_id.toLowerCase();
-    const newCityInfo = {
-      province_id: province_id,
-      city: city
-    }
-    setInfo(newCityInfo)
-    if (category !== undefined) {
-      router.push(`/ca/${province_id}/${city}/${category}`);
     } else {
-      router.push("#");
+      const city = getSlug(cityInfo.attributes.city_ascii);
+      const province_id = cityInfo.attributes.province_id.toLowerCase();
+      const newCityInfo = {
+        province_id: province_id,
+        city: city
+      }
+      setInfo(newCityInfo)
+      // setItems(newCityInfo)
+      if (category !== undefined) {
+        router.push(`/ca/${province_id}/${city}/${category}`);
+      } else {
+        router.push(`/ca/${province_id}/${city}`);
+      }
     }
   };
 
@@ -222,19 +234,20 @@ const MobileMenu = ({ category, cityInfo, setInfo }) => {
                       </div>
                     </div>
                     <div className="col-md-6 col-lg-6 col-8">
-                      <div
-                        className="form_group justify-content-center align-items-center"
-                        style={{ width: "100%" }}
-                      >
-                        <i style={{ zIndex: 1 }}>
-                          <RoomIcon />
-                        </i>
-                        <input
-                          type="text"
+                      <div className="form-group">
+                        <Autocomplete
+                          name="address"
                           className="form_control"
-                          placeholder="City Name"
-                          name="location"
+                          placeholder="Search City"
                           required
+                          apiKey={process.env.GOOGLE_API_KEY}
+                          onPlaceSelected={(place) => {
+                            console.log("placee", place)
+                            setAddress(place?.address_components[0]?.long_name)
+                          }}
+                          options={{
+                            types: ["geocode", "establishment"],
+                          }}
                         />
                       </div>
                     </div>
