@@ -49,7 +49,7 @@ const Blog = ({ articles, categories }) => {
                                 <i className="ti-bookmark-alt" />
                                 <a href="#">
                                   {
-                                    article.attributes.category.data.attributes.name
+                                    article?.attributes?.category?.data?.attributes.name
                                   }
                                 </a>
                               </span>
@@ -63,7 +63,7 @@ const Blog = ({ articles, categories }) => {
                             <li>
                               <span>
                                 <i className="ti-id-badge" />
-                                <a href="#">By {article.attributes.writer.data.attributes.name}</a>
+                                <a href="#">By {article.attributes.writer?.data?.attributes.name}</a>
                               </span>
                             </li>
                           </ul>

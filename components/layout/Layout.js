@@ -11,25 +11,45 @@ const Layout = ({ children, category }) => {
   const [cookie, setCookie, removeCookie] = useCookies(["city", "province_id"])
   const [cityName, setCityName] = useState();
   // const currentCity = localStorage.getItem('mainCityName');
-  // useEffect(() => {
-  //   (async () => {
-  //     const currentCity = localStorage.getItem('mainCityName');
-  //     const articlesRes = await fetchAPI(`/canada-cities?`, {
-  //       filters: {
-  //         city_ascii: {
-  //           $contains: currentCity,
-  //         },
-  //       },
-  //       populate: "*",
-  //     });
-  //     setCityName(articlesRes.data);
-  //   })();
-  // }, [])
-  console.log("Current City", cityName)
+  const [myLocalStorageData, setMyLocalStorageData] = useState()
+  const filterState = cityName && cityName?.filter(function (city) {
+    return city.attributes.city_ascii === myLocalStorageData;
+  });
+  useEffect(() => {
+    //logic for getting a local storage value
+    const data = localStorage.getItem('mainCityName');
+    if (data) {
+      setMyLocalStorageData(data);
+      (
+        (async () => {
+          // const currentCity = localStorage.getItem('mainCityName');
+          const articlesRes = await fetchAPI(`/canada-cities?`, {
+            filters: {
+              city_ascii: data,
+            },
+            populate: "*",
+          });
+          setCityName(articlesRes.data);
+        })()
+      )
+    }
+    // setMyLocalStorageData(data)
+
+  }, [])
+
+
+  const currentCityData = filterState && filterState[0].attributes?.city_ascii
+  const currentProvinceData = filterState && filterState[0].attributes?.province_id
+
   const [cityInfo, setCityInfo] = useState({
-    city: "toronto",
-    province_id: "on"
+    city: 'toronto',
+    province_id: 'on'
   })
+  // const cityInfo = {
+  //   province_id: currentProvinceData && currentProvinceData,
+  //   city: currentCityData && currentCityData
+  // }
+  console.log("Local Strodge", currentProvinceData)
   const getLocation = () => {
     var options = {
       enableHighAccuracy: true,
@@ -112,6 +132,8 @@ const Layout = ({ children, category }) => {
     activeNavMenu();
     window.addEventListener("scroll", stickyNav);
     getLocation();
+    // setCityInfo(newCityInfoStatic)
+    // console.log("All Console data", cityInfo)
   }, []);
 
   return (

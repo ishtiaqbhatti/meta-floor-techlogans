@@ -107,27 +107,27 @@ const Footer = ({ cityInfo }) => {
               <h6 className="footer-menu-header mt-4 px-3">IMPORTANTS LINKS</h6>
               <p className="footer-menu-content px-3">
                 <Link
-                  href={`/ca/${cityInfo.province_id}/${cityInfo.city}/hardwood-floor-store`}
+                  href={`/ca/${cityInfo?.province_id}/${cityInfo?.city}/hardwood-floor-store`}
                 >
                   <a className="footer-menu-item">HARDWOOD</a>
                 </Link>
                 <Link
-                  href={`/ca/${cityInfo.province_id}/${cityInfo.city}/laminate-floor-store`}
+                  href={`/ca/${cityInfo?.province_id}/${cityInfo?.city}/laminate-floor-store`}
                 >
                   <a className="footer-menu-item">LAMINATE</a>
                 </Link>
                 <Link
-                  href={`/ca/${cityInfo.province_id}/${cityInfo.city}/vinyl-floor-store`}
+                  href={`/ca/${cityInfo?.province_id}/${cityInfo?.city}/vinyl-floor-store`}
                 >
                   <a className="footer-menu-item">VINYL</a>
                 </Link>
                 <Link
-                  href={`/ca/${cityInfo.province_id}/${cityInfo.city}/carpet-floor-store`}
+                  href={`/ca/${cityInfo?.province_id}/${cityInfo?.city}/carpet-floor-store`}
                 >
                   <a className="footer-menu-item">CARPET</a>
                 </Link>
                 <Link
-                  href={`/ca/${cityInfo.province_id}/${cityInfo.city}/tile-store`}
+                  href={`/ca/${cityInfo?.province_id}/${cityInfo?.city}/tile-store`}
                 >
                   <a className="footer-menu-item">TILE</a>
                 </Link>

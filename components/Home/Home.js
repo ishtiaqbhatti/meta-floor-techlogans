@@ -7,6 +7,7 @@ import Image from "next/image";
 import { fetchAPI } from "../../lib/api";
 import http from "../../components/http";
 import { getStrapiMedia } from "../../lib/media";
+import ImageView from "../image";
 import { parseCookies } from "nookies";
 import { BrandsCardData, FlooringBlogData, FlooringProjectData } from "../data";
 
@@ -18,6 +19,17 @@ const HomeComponent = () => {
   const [topBusinesses, setTopBusinesses] = useState("");
   const [topBrands, setTopBrands] = useState("");
   const [businesses, setBusinesses] = useState("");
+  const [article, setArticle] = useState('')
+  useEffect(() => {
+    (async () => {
+      const articlesRes = await fetchAPI("/articles", {
+        populate: "*",
+      });
+      setArticle(articlesRes?.data);
+    })();
+  }, [])
+
+  console.log("All Blogs", article)
 
   useEffect(() => {
     (async () => {
@@ -123,35 +135,37 @@ const HomeComponent = () => {
         </p>
 
         <div className="row">
-          {FlooringBlogData.map(
-            ({ id, link, img, title, description, target }) => {
-              return (
-                <Link href={link} passHref key={id}>
-                  <div className="col-lg-4 col-md-4 col-sm-6 my-4">
-                    <a target={target} rel="noreferrer">
-                      <div className="top-flooring-resources-card">
-                        <div className="top-flooring-resources-image">
-                          <Image
-                            src={img}
-                            alt={title}
-                            width="400px"
-                            height="400px"
-                          />
-                        </div>
-                        <div className="top-flooring-resources-content text-center">
-                          <p>
-                            {title}
-                          </p>
-                          <span>
-                            {description}
-                          </span>
-                        </div>
+          {article && article.map((blog) => {
+            return (
+              <Link href={`blog/${blog?.attributes?.slug}`} passHref key={blog?.id}>
+                <div className="col-lg-4 col-md-4 col-sm-6 my-4">
+                  <a target="blank_" rel="noreferrer">
+                    <div className="top-flooring-resources-card">
+                      <div className="top-flooring-resources-image">
+                        {/* <ImageView image={blog?.attributes?.image} /> */}
+                        <Image
+                          src={getStrapiMedia(
+                            blog?.attributes?.image
+                          )}
+                          alt="Listing Image"
+                          width="700px"
+                          height="500px"
+                        />
                       </div>
-                    </a>
-                  </div>
-                </Link>
-              );
-            }
+                      <div className="top-flooring-resources-content text-center">
+                        <p>
+                          {blog?.attributes?.title}
+                        </p>
+                        <span>
+                          {blog?.attributes?.description}
+                        </span>
+                      </div>
+                    </div>
+                  </a>
+                </div>
+              </Link>
+            );
+          }
           )}
         </div>
       </div>
