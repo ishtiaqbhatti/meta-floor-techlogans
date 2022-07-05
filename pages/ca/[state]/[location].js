@@ -8,6 +8,8 @@ import { getStrapiMedia } from "../../../lib/media"
 import Image from "next/image";
 import Head from "next/head";
 import qs from 'qs'
+import { toCamelCase } from "../../../components/utils"
+import { AiTwotoneStar, AiOutlineStar } from 'react-icons/ai'
 
 const Citylocation = () => {
 
@@ -56,12 +58,14 @@ const Citylocation = () => {
         return city.attributes.city === capitalCity;
     });
     console.log("State City name", filterCity);
+    const totalStar = 5
+    const activeStar = 4
 
     return (
         <>
             <Head>
-                <title>{`Find Top-Rated Flooring Services in ${cityName},${query.state} - Flooring Metaverse`}</title>
-                <meta property="title" content={`Find Top-Rated Flooring Services in ${cityName},${query.state} - Flooring Metaverse`} key="title" />
+                <title>{`Find Top-Rated Flooring Services in ${toCamelCase(cityName)}, ${toCamelCase(query.state)} - Flooring Metaverse`}</title>
+                <meta property="title" content={`Find Top-Rated Flooring Services in ${toCamelCase(cityName)}, ${toCamelCase(query.state)} - Flooring Metaverse`} key="title" />
             </Head>
             <Layout>
                 <div className="bread">
@@ -79,12 +83,12 @@ const Citylocation = () => {
                             </Breadcrumb.Item>
                             <Breadcrumb.Item  >
                                 <Link href={`/ca/${query.state}`}>
-                                    {stateName}
+                                    {toCamelCase(stateName)}
                                 </Link>
                             </Breadcrumb.Item>
                             <Breadcrumb.Item  >
                                 <Link href={`/ca/${query.state}/${query.location}`}>
-                                    {locationName}
+                                    {toCamelCase(locationName)}
                                 </Link>
                             </Breadcrumb.Item>
                         </Breadcrumb>
@@ -92,17 +96,16 @@ const Citylocation = () => {
                 </div>
 
                 <div className="banner_location py-5 text-center">
-                    <h2>We have a lot of listings</h2>
-                    <p>
-                        Pick from specific flooring services in {locationName} below
-                    </p>
+                    <p>We have a lot of listings</p>
+                    <h2>
+                        Pick from specific flooring services in {toCamelCase(locationName)} below
+                    </h2>
                 </div>
                 <div className="ca_location py-5">
                     <div className="container">
-                        <h3 className="main_heading">
-                            {`Flooring Contractors & Supplies in ${" "}
-                            ${query.location.charAt(0).toUpperCase().replace("  ", /[^a-zA-Z ]/g, "  ") + query.location.slice(1).replace(/[^a-zA-Z ]/g, " ")}, ${stateName}`}
-                        </h3>
+                        <h1 className="main_heading">
+                            {`Flooring Contractors & Supplies in  ${toCamelCase(query.location)}, ${toCamelCase(stateName)}`}
+                        </h1>
                         <div className="row my-3">
                             <div className="col-lg-3 col-md-3 col-sm-4 col-6">
                                 <h3 className="category_name">
@@ -225,7 +228,7 @@ const Citylocation = () => {
                                 </div>
                             </div>
                         </div>
-                        <p className="listing_footer">Choose from the categories above to find the specific service for your needs. We have {service?.length} listings in {locationName}, so you are sure to find exactly what you’re looking for.</p>
+                        <p className="listing_footer">Choose from the categories above to find the specific service for your needs. We have {service?.length} listings in {toCamelCase(locationName)}, so you are sure to find exactly what you’re looking for.</p>
 
                     </div>
                 </div>
@@ -241,7 +244,7 @@ const Citylocation = () => {
 
                                     <>
                                         <div className="top_listing_busniess">
-                                            <h3>Top Listings in {locationName}</h3>
+                                            <h3>Top Listings in {toCamelCase(locationName)}</h3>
                                         </div>
                                         <div className="row">
                                             {filterCity &&
@@ -267,24 +270,27 @@ const Citylocation = () => {
                                                                             <a>{brand.attributes.name}</a>
                                                                         </Link>
                                                                     </h3>
-                                                                    <span className="phone-meta">
-                                                                        <i className="ti-tablet" />
-                                                                        {brand.attributes.phone_number && (
-                                                                            <a href={`tel:${brand.attributes.phone_number}`}>
-                                                                                {brand.attributes.phone_number}
-                                                                            </a>
-                                                                        )}
-                                                                    </span>
+
                                                                     <div className="listing-meta">
                                                                         <ul>
                                                                             <li>
-                                                                                <span>
-                                                                                    <i className="ti-location-pin" />
+                                                                                <span className="card_address">
+                                                                                    {/* <i className="ti-location-pin" /> */}
                                                                                     {brand.attributes && brand.attributes.address}
-                                                                                    , CANADA
+
                                                                                 </span>
                                                                             </li>
                                                                         </ul>
+                                                                        <span className="reviews">
+                                                                            {[...new Array(totalStar)].map((arr, index) => {
+                                                                                return index < activeStar ? <span className="active_star">
+                                                                                    <AiTwotoneStar size={24} />
+                                                                                </span> : <span><AiOutlineStar size={24} /></span>;
+                                                                            })}
+
+                                                                            (4.0) | 53 Reviews
+
+                                                                        </span>
                                                                     </div>
                                                                 </div>
                                                             </div>

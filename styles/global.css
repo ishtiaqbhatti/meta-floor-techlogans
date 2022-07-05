@@ -207,6 +207,13 @@ img.mfp-img {
   letter-spacing: 5.6px;
 }
 
+@media screen and (max-width:780px) {
+  .main_heading {
+    font-size: 18px;
+    line-height: 30px;
+  }
+}
+
 .category_name {
   color: #241B1B;
   font-family: "Lato", Sans-serif;
@@ -319,6 +326,7 @@ img.mfp-img {
   letter-spacing: 1.6px;
   color: #241B1B;
   font-family: "Lato", Sans-serif;
+  line-height: 25px;
 }
 
 .top_listing_busniess h3 {
@@ -330,4 +338,26 @@ img.mfp-img {
 
 .top_heading {
   font-weight: 400 !important;
+}
+
+/* card Design */
+
+.listing-content .title {
+  font-size: 25px;
+  color: #010101 !important;
+  font-weight: 800 !important;
+  margin-top: 1rem;
+}
+
+.card_address {
+  text-decoration: underline;
+  color: #010101;
+  font-size: 16px;
+  text-transform: capitalize !important;
+}
+
+.reviews {
+  font-size: 16px;
+  color: #010101;
+  margin-top: 1rem;
 }

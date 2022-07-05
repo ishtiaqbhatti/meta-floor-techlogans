@@ -9,6 +9,23 @@ import { fetchAPI } from "../../lib/api";
 
 const Layout = ({ children, category }) => {
   const [cookie, setCookie, removeCookie] = useCookies(["city", "province_id"])
+  const [cityName, setCityName] = useState();
+  // const currentCity = localStorage.getItem('mainCityName');
+  // useEffect(() => {
+  //   (async () => {
+  //     const currentCity = localStorage.getItem('mainCityName');
+  //     const articlesRes = await fetchAPI(`/canada-cities?`, {
+  //       filters: {
+  //         city_ascii: {
+  //           $contains: currentCity,
+  //         },
+  //       },
+  //       populate: "*",
+  //     });
+  //     setCityName(articlesRes.data);
+  //   })();
+  // }, [])
+  console.log("Current City", cityName)
   const [cityInfo, setCityInfo] = useState({
     city: "toronto",
     province_id: "on"
@@ -23,7 +40,7 @@ const Layout = ({ children, category }) => {
       console.warn(`ERROR(${err.code}): ${err.message}`);
     }
     navigator.geolocation.getCurrentPosition(showPosition, error, options);
-    
+
     function showPosition(position) {
       const lat = position.coords.latitude;
       const lng = position.coords.longitude;
@@ -31,10 +48,10 @@ const Layout = ({ children, category }) => {
       xhr.open(
         "GET",
         "https://us1.locationiq.com/v1/reverse.php?key=pk.208fe6b58f412dc962ed45ca46ee8a61&lat=" +
-          lat +
-          "&lon=" +
-          lng +
-          "&format=json",
+        lat +
+        "&lon=" +
+        lng +
+        "&format=json",
         true
       );
       xhr.send();
@@ -42,44 +59,44 @@ const Layout = ({ children, category }) => {
       xhr.addEventListener("readystatechange", processRequest, false);
       async function processRequest(e) {
         if (xhr.readyState == 4 && xhr.status == 200) {
-            var response = JSON.parse(xhr.responseText);
-            const cityInfoItems = await fetchAPI("/canada-cities", {
-              filters: {
-                city_ascii: response.address.city,
-              },
-              populate: "*",
-            });
-            const cityInfoItem = cityInfoItems.data[0];
-            if (cookie.city != undefined) {
+          var response = JSON.parse(xhr.responseText);
+          const cityInfoItems = await fetchAPI("/canada-cities", {
+            filters: {
+              city_ascii: response.address.city,
+            },
+            populate: "*",
+          });
+          const cityInfoItem = cityInfoItems.data[0];
+          if (cookie.city != undefined) {
+            const currentCity = {
+              province_id: cookie.province_id,
+              city: cookie.city
+            }
+            setCityInfo(currentCity)
+          } else {
+            if (cityInfoItem == undefined) {
               const currentCity = {
-                province_id: cookie.province_id,
-                city: cookie.city
+                province_id: "on",
+                city: "toronto"
               }
               setCityInfo(currentCity)
             } else {
-              if (cityInfoItem == undefined) {
-                const currentCity = {
-                  province_id: "on",
-                  city: "toronto"
-                }
-                setCityInfo(currentCity)
-              } else {
-                const currentCity = {
-                  province_id: cityInfoItem.attributes.province_id.toLowerCase(),
-                  city: getSlug(cityInfoItem.attributes.city_ascii)
-                }
-                setCityInfo(currentCity)
+              const currentCity = {
+                province_id: cityInfoItem.attributes.province_id.toLowerCase(),
+                city: getSlug(cityInfoItem.attributes.city_ascii)
               }
+              setCityInfo(currentCity)
             }
-            return;
+          }
+          return;
         }
       }
     };
   };
-    
+
   const handleInfo = ({ city, province_id }) => {
-    removeCookie("city", { path: '/'})
-    removeCookie("province_id", { path: '/'})
+    removeCookie("city", { path: '/' })
+    removeCookie("province_id", { path: '/' })
     setCookie("city", city, { path: '/' })
     setCookie("province_id", province_id, { path: '/' })
     const newCityInfo = {
@@ -88,7 +105,7 @@ const Layout = ({ children, category }) => {
     }
     setCityInfo(newCityInfo)
   }
-  
+
   useEffect(() => {
     animation();
     // niceSelect();
