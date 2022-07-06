@@ -25,7 +25,9 @@ const Layout = ({ children, category }) => {
           // const currentCity = localStorage.getItem('mainCityName');
           const articlesRes = await fetchAPI(`/canada-cities?`, {
             filters: {
-              city_ascii: data,
+              city_ascii: {
+                $contains: data,
+              },
             },
             populate: "*",
           });
@@ -42,14 +44,13 @@ const Layout = ({ children, category }) => {
   const currentProvinceData = filterState && filterState[0].attributes?.province_id
 
   const [cityInfo, setCityInfo] = useState({
-    city: 'toronto',
-    province_id: 'on'
+    province_id: 'on',
+    city: 'toronto'
+    // province_id: currentProvinceData,
+    // city: currentCityData
   })
-  // const cityInfo = {
-  //   province_id: currentProvinceData && currentProvinceData,
-  //   city: currentCityData && currentCityData
-  // }
-  console.log("Local Strodge", currentProvinceData)
+
+  console.log("Local Strodge", currentCityData)
   const getLocation = () => {
     var options = {
       enableHighAccuracy: true,
@@ -114,6 +115,7 @@ const Layout = ({ children, category }) => {
     };
   };
 
+
   const handleInfo = ({ city, province_id }) => {
     removeCookie("city", { path: '/' })
     removeCookie("province_id", { path: '/' })
@@ -132,8 +134,6 @@ const Layout = ({ children, category }) => {
     activeNavMenu();
     window.addEventListener("scroll", stickyNav);
     getLocation();
-    // setCityInfo(newCityInfoStatic)
-    // console.log("All Console data", cityInfo)
   }, []);
 
   return (
