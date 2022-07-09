@@ -8,9 +8,9 @@ const Index = () => {
       <div className="home-header">
         <div className="home-header-content">
           <div className="home-header-body">
-            <h1 style={{ width: "70%" }} className="MuiTypography-root MuiTypography-h1 MuiTypography-alignLeft">
+            <h4 style={{ width: "70%" }} className="MuiTypography-root MuiTypography-h1 MuiTypography-alignLeft">
               Find Flooring Stores & Contractors Near You
-            </h1>
+            </h4>
           </div>
         </div>
       </div>

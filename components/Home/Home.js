@@ -12,7 +12,7 @@ import { parseCookies } from "nookies";
 import { BrandsCardData, FlooringBlogData, FlooringProjectData } from "../data";
 
 import flooringCtaImage from "../../public/assets/images/flooring-cta-bg.jpg";
-
+import { AiTwotoneStar, AiOutlineStar } from 'react-icons/ai'
 // import "../../public/assets/css/home.css";
 
 const HomeComponent = () => {
@@ -49,6 +49,9 @@ const HomeComponent = () => {
   }, []);
 
   console.log("Business data", businesses);
+
+  const totalStar = 5
+  const activeStar = 4
 
   return (
     <div>
@@ -195,43 +198,54 @@ const HomeComponent = () => {
                   <div className="col-lg-3 col-md-4 col-sm-6" key={brand.id}>
                     <div className="listing-item listing-grid-item-two mb-30">
                       <div className="listing-thumbnail">
-                        <Link href={`/listing/${brand.attributes.slug}`}>
-                          <a className="">
+                        <Link href={`/listing/${brand.attributes.slug}`}  >
+                          <a className="card_image" target="blank_" rel="nofollow" >
                             <Image
                               src={getStrapiMedia(
                                 brand.attributes.business_logo
                               )}
                               alt="Listing Image"
-                              width="100%"
-                              height="200px"
+                              width="400px"
+                              height="250px"
                             />
                           </a>
                         </Link>
                       </div>
                       <div className="listing-content">
                         <h3 className="title">
-                          <Link href={`/listing/${brand.attributes.slug}`}>
-                            <a>
+                          <Link href={`/listing/${brand.attributes.slug}`} >
+                            <a target="blank_" rel="nofollow">
                               {brand.attributes.name}
                             </a>
                           </Link>
                         </h3>
-                        <span className="phone-meta">
+                        {/* <span className="phone-meta">
                           <i className="ti-tablet" />
                           {brand.attributes.phone_number &&
                             <a href={`tel:${brand.attributes.phone_number}`}>
                               {brand.attributes.phone_number}
                             </a>}
-                        </span>
+                        </span> */}
                         <div className="listing-meta">
                           <ul>
                             <li>
-                              <span>
-                                <i className="ti-location-pin" />
+                              <span className="card_address">
+                                {/* <i className="ti-location-pin" /> */}
                                 {brand.attributes && brand.attributes.address}
+
                               </span>
                             </li>
                           </ul>
+                          {/* <span className="reviews">
+                            {[...new Array(totalStar)].map((arr, index) => {
+                              return index < activeStar ? <span className="active_star">
+                                <AiTwotoneStar size={24} />
+                              </span> : <span><AiOutlineStar size={24} /></span>;
+                            })}
+
+                            (4.0) | 53 Reviews
+
+                          </span> */}
                         </div>
                       </div>
                     </div>
@@ -264,14 +278,14 @@ const HomeComponent = () => {
                     <div className="listing-item listing-grid-item-two mb-30">
                       <div className="listing-thumbnail">
                         <Link href={`/listing/${brand.attributes.slug}`}>
-                          <a className="">
+                          <a className="card_image" target="blank_" rel="nofollow">
                             <Image
                               src={getStrapiMedia(
                                 brand.attributes.business_logo
                               )}
                               alt="Listing Image"
                               width="400px"
-                              height="200px"
+                              height="250px"
                             />
                           </a>
                         </Link>
@@ -279,28 +293,38 @@ const HomeComponent = () => {
                       <div className="listing-content">
                         <h3 className="title">
                           <Link href={`/listing/${brand.attributes.slug}`}>
-                            <a>
+                            <a target="blank_" rel="nofollow">
                               {brand.attributes.name}
                             </a>
                           </Link>
                         </h3>
-                        <span className="phone-meta">
+                        {/* <span className="phone-meta">
                           <i className="ti-tablet" />
                           {brand.attributes.phone_number &&
                             <a href={`tel:${brand.attributes.phone_number}`}>
                               {brand.attributes.phone_number}
                             </a>}
-                        </span>
+                        </span> */}
                         <div className="listing-meta">
                           <ul>
                             <li>
-                              <span>
-                                <i className="ti-location-pin" />
+                              <span className="card_address">
+                                {/* <i className="ti-location-pin" /> */}
                                 {brand.attributes && brand.attributes.address}
-                                , CANADA
+
                               </span>
                             </li>
                           </ul>
+                          {/* <span className="reviews">
+                            {[...new Array(totalStar)].map((arr, index) => {
+                              return index < activeStar ? <span className="active_star">
+                                <AiTwotoneStar size={24} />
+                              </span> : <span><AiOutlineStar size={24} /></span>;
+                            })}
+
+                            (4.0) | 53 Reviews
+
+                          </span> */}
                         </div>
                       </div>
                     </div>
@@ -333,7 +357,7 @@ const HomeComponent = () => {
                     <div className="listing-item listing-grid-item-two mb-30">
                       <div className="listing-thumbnail">
                         <Link href={`/listing/${brand.attributes.slug}`}>
-                          <a className="">
+                          <a className="card_image" target="blank_" rel="nofollow">
                             <Image
                               src={getStrapiMedia(
                                 brand.attributes.business_logo
@@ -348,27 +372,38 @@ const HomeComponent = () => {
                       <div className="listing-content">
                         <h3 className="title">
                           <Link href={`/listing/${brand.attributes.slug}`}>
-                            <a>
+                            <a target="blank_" rel="nofollow">
                               {brand.attributes.name}
                             </a>
                           </Link>
                         </h3>
-                        <span className="phone-meta">
+                        {/* <span className="phone-meta">
                           <i className="ti-tablet" />
                           {brand.attributes.phone_number &&
                             <a href={`tel:${brand.attributes.phone_number}`}>
                               {brand.attributes.phone_number}
                             </a>}
-                        </span>
+                        </span> */}
                         <div className="listing-meta">
                           <ul>
                             <li>
-                              <span>
-                                <i className="ti-location-pin" />
+                              <span className="card_address">
+                                {/* <i className="ti-location-pin" /> */}
                                 {brand.attributes && brand.attributes.address}
+
                               </span>
                             </li>
                           </ul>
+                          {/* <span className="reviews">
+                            {[...new Array(totalStar)].map((arr, index) => {
+                              return index < activeStar ? <span className="active_star">
+                                <AiTwotoneStar size={24} />
+                              </span> : <span><AiOutlineStar size={24} /></span>;
+                            })}
+
+                            (4.0) | 53 Reviews
+
+                          </span> */}
                         </div>
                       </div>
                     </div>

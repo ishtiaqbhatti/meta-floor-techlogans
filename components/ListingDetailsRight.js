@@ -23,7 +23,7 @@ const ListingDetailsRight = ({ business }) => {
     <div className="col-lg-4">
       <div className="sidebar-widget-area">
         <div className="widget business-hour-widget reservation-form-widget mb-30 wow fadeInUp">
-          <h4 className="widget-title">Services Provide</h4>
+          <h4 className="widget-title">Services Provided:</h4>
           <ul className="time-info">
             {hardWoodData?.length != 0 && (
               <>
@@ -113,12 +113,12 @@ const ListingDetailsRight = ({ business }) => {
           <div className="contact-info-widget-wrap">
             <div className="contact-map">
               <iframe src={`https://maps.google.com/maps?q=${business.attributes.address}&t=&z=13&ie=UTF8&iwloc=&output=embed`} />
-              <a href="#" className="support-icon">
+              {/* <a href="#" className="support-icon">
                 <i className="flaticon-headphone" />
-              </a>
+              </a> */}
             </div>
             <div className="contact-info-content">
-              <h4 className="widget-title">Contact Info</h4>
+              <h4 className="widget-title">Contact Info:</h4>
               <div className="info-list">
                 <p>
                   <i className="ti-tablet" />
@@ -144,7 +144,7 @@ const ListingDetailsRight = ({ business }) => {
           </div>
         </div>
         <div className="widget business-hour-widget mb-30 wow fadeInUp">
-          <h4 className="widget-title">Business Hour</h4>
+          <h4 className="widget-title">Business Hours:</h4>
           <ul className="time-info">
             <li>
               <span className="day">Monday</span>

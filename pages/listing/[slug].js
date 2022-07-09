@@ -155,6 +155,7 @@ const Name = () => {
     validationSchema,
   });
 
+  console.log("Single Business", business)
 
 
 
@@ -163,7 +164,7 @@ const Name = () => {
     <Layout>
       <Head>
         <title>{business?.attributes?.name}</title>
-        <meta property="title" content={business?.attributes?.description} />
+        <meta property="title" content={`${business?.attributes?.name} - Flooring Metaverse`} />
       </Head>
       <div className="bread">
         <div className="container">
@@ -174,10 +175,14 @@ const Name = () => {
               </Link>
             </Breadcrumb.Item>
             <Breadcrumb.Item >
-              <Link href="">
-                Listing
-              </Link>
-
+              {/* <Link href=""> */}
+              {business?.attributes?.city}
+              {/* </Link> */}
+            </Breadcrumb.Item>
+            <Breadcrumb.Item >
+              {/* <Link href=""> */}
+              {business?.attributes?.name}
+              {/* </Link> */}
             </Breadcrumb.Item>
           </Breadcrumb>
         </div>
@@ -185,34 +190,38 @@ const Name = () => {
       {business &&
         <section className="page-breadcrumbs page-breadcrumbs-one pt-20 pb-10">
           <div className="container">
-            <div className="breadcrumbs-wrapper-one">
-              <div className="row align-items-center">
+            <div className="breadcrumbs-wrapper-one py-4">
+              <div className="row ">
                 <div className="col-lg-5 col-md-12">
                   <div className="listing-info-name">
-                    <div className="info-name d-flex">
-                      <div className="thumb">
-                        <img src={getStrapiMedia(business.attributes.business_logo)} />
-                        {/* <Image
+                    <div className="info-name">
+                      <div className="row">
+                        <div className="col-md-4 col-4">
+                          <div className="thumb">
+                            <img src={getStrapiMedia(business.attributes.business_logo)} />
+                            {/* <Image
                           src={getStrapiMedia(business.attributes.business_logo)}
                           alt="Listing Image"
                           width="270px"
                           height="195px"
                         /> */}
+                          </div>
+                        </div>
+                        <div className="col-md-8 col-8">
+                          <div className="content">
+                            <h1 className="list_title">{business?.attributes?.name}</h1>
+                            <p className="tag">
+                              <a href="#">{business?.attributes?.tagline}</a>
+                            </p>
+                          </div>
+                        </div>
                       </div>
-                      <div className="content">
-                        <span className="cat-btn">
-                          {business?.attributes?.services?.data[0]?.attributes.name}
-                        </span>
-                        <h3>{business.attributes.name}</h3>
-                        <p className="tag">
-                          <a href="#">Popular Business</a>,
-                          <a href="#">{business.attributes.canada_city?.data?.attributes.city_ascii}</a>
-                        </p>
-                      </div>
+
+
                     </div>
                   </div>
                 </div>
-                <div className="col-lg-4 col-md-6">
+                <div className="col-lg-6 col-md-6">
                   <div className="listing-info-content">
                     <div className="content">
                       <ul className="ratings ratings-three">
@@ -246,7 +255,7 @@ const Name = () => {
                     </div>
                   </div>
                 </div>
-                <div className="col-lg-3 col-md-6">
+                {/* <div className="col-lg-3 col-md-6">
                   <div className="button">
                     <Link href="">
                       <a className="icon-btn">
@@ -259,7 +268,7 @@ const Name = () => {
                       </a>
                     </Link>
                   </div>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>
@@ -275,7 +284,7 @@ const Name = () => {
               <div className="col-lg-8">
                 <div className="listing-details-wrapper listing-details-wrapper-one">
                   <div className="listing-content mb-20 wow fadeInUp">
-                    <h3 className="title mt-4">Popular Business in {business?.attributes?.city} of {business?.attributes?.state}</h3>
+                    <h2 className="title mt-4">About  {business?.attributes?.name} </h2>
                     <p>
                       {business.attributes.description}
                     </p>

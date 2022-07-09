@@ -40,17 +40,17 @@ const Layout = ({ children, category }) => {
   }, [])
 
 
-  const currentCityData = filterState && filterState[0].attributes?.city_ascii
-  const currentProvinceData = filterState && filterState[0].attributes?.province_id
+  const currentCityData = filterState && filterState[0]?.attributes?.city_ascii
+  const currentProvinceData = filterState && filterState[0]?.attributes?.province_id
 
   const [cityInfo, setCityInfo] = useState({
-    province_id: 'on',
-    city: 'toronto'
-    // province_id: currentProvinceData,
-    // city: currentCityData
+    // province_id: 'on',
+    // city: 'toronto'
+    province_id: currentProvinceData !== "undefined" ? currentProvinceData : 'on',
+    city: currentCityData !== "undefined" ? currentCityData : 'toronto'
   })
 
-  console.log("Local Strodge", currentCityData)
+  console.log("Local Strodge", cityInfo)
   const getLocation = () => {
     var options = {
       enableHighAccuracy: true,

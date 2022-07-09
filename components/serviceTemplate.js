@@ -127,7 +127,7 @@ const ServiceTemplate = ({ category }) => {
                             <div className="listing-item listing-grid-item-two mb-30">
                               <div className="listing-thumbnail">
                                 <Link href={`/listing/${brand.attributes.slug}`}>
-                                  <a className="">
+                                  <a className="card_image" target="blank_" rel="nofollow">
                                     <Image
                                       src={getStrapiMedia(brand.attributes.business_logo)}
                                       alt="Listing Image"
@@ -140,7 +140,7 @@ const ServiceTemplate = ({ category }) => {
                               <div className="listing-content">
                                 <h3 className="title">
                                   <Link href={`/listing/${brand.attributes.slug}`}>
-                                    <a>{brand.attributes.name}</a>
+                                    <a target="blank_" rel="nofollow">{brand.attributes.name}</a>
                                   </Link>
                                 </h3>
 
@@ -154,7 +154,7 @@ const ServiceTemplate = ({ category }) => {
                                       </span>
                                     </li>
                                   </ul>
-                                  <span className="reviews">
+                                  {/* <span className="reviews">
                                     {[...new Array(totalStar)].map((arr, index) => {
                                       return index < activeStar ? <span className="active_star">
                                         <AiTwotoneStar size={24} />
@@ -163,7 +163,7 @@ const ServiceTemplate = ({ category }) => {
 
                                     (4.0) | 53 Reviews
 
-                                  </span>
+                                  </span> */}
                                 </div>
                               </div>
                             </div>

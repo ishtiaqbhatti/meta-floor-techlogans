@@ -18,7 +18,7 @@ const Footer = ({ cityInfo }) => {
             <div className="col-lg-6 col-md-6 col-12">
               <div className="footer_upper_section text_section mt-3">
                 <div className="inner_text">
-                  <h2>Find Flooring Stores & Contractors Near You</h2>
+                  <h4>Find Flooring Stores & Contractors Near You</h4>
                   <Link href="/ca">
                     <a className="btn-root register-btn">Learn More</a>
                   </Link>
@@ -68,7 +68,7 @@ const Footer = ({ cityInfo }) => {
                     />TWITTER
                   </a>
                 </Link>
-                <Link href="https://www.facebook.com/">
+                <Link href="https://www.facebook.com/theflooringmetaverse">
                   <a className="footer-menu-item" target="_blank">
                     <AiFillFacebook
                       size={24}

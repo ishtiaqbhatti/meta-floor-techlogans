@@ -47,7 +47,7 @@ html {
   box-shadow: 0px 0px 20px 6px rgba(184, 168, 168, 0.75);
   border-radius: 10px;
   border: 1px solid silver;
-  min-height: 385px !important;
+  min-height: 342px !important;
 }
 
 .c-pointer {
@@ -306,6 +306,7 @@ img.mfp-img {
     padding-top: 2rem;
   }
 
+
 }
 
 .text_section {
@@ -317,6 +318,12 @@ img.mfp-img {
   width: 100%;
   height: 100%;
   margin-top: 7rem;
+}
+
+.inner_text h4 {
+  font-size: 50px;
+  line-height: 60px;
+  font-weight: 500;
 }
 
 .main_title_intro {
@@ -350,7 +357,7 @@ img.mfp-img {
 }
 
 .card_address {
-  text-decoration: underline;
+  /* text-decoration: underline; */
   color: #010101;
   font-size: 16px;
   text-transform: capitalize !important;
@@ -360,4 +367,19 @@ img.mfp-img {
   font-size: 16px;
   color: #010101;
   margin-top: 1rem;
+}
+
+.list_title {
+  font-size: 28px;
+  font-weight: 800;
+  line-height: 40px;
+}
+
+.card_image {
+  width: 100%;
+  height: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
 }

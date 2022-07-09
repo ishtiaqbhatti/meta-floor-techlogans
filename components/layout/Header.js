@@ -32,6 +32,7 @@ const Header = ({ category, cityInfo, setInfo }) => {
   console.log('Address', address)
 
   const getDeliveryUrl = async (e) => {
+
     e.preventDefault();
     localStorage.setItem('mainCityName', address);
     const currentCity = localStorage.getItem('mainCityName');
@@ -68,8 +69,10 @@ const Header = ({ category, cityInfo, setInfo }) => {
       // setItems(newCityInfo)
       if (category !== undefined) {
         router.push(`/ca/${province_id}/${city}/${category}`);
+        router.reload(window.location.pathname)
       } else {
         router.push(`/ca/${province_id}/${city}`);
+        router.reload(window.location.pathname)
       }
     }
   };
@@ -229,8 +232,10 @@ const Header = ({ category, cityInfo, setInfo }) => {
                             setAddress(place?.address_components[0]?.long_name)
                           }}
                           options={{
-                            types: ["geocode", "establishment"],
+                            types: ["geocode", "establishment",],
+                            // componentRestrictions: { country: "CA" },
                           }}
+
                         />
                       </div>
                     </div>
