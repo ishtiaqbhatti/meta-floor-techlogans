@@ -25,56 +25,62 @@ import "react-toastify/dist/ReactToastify.css";
 const Header = ({ category, cityInfo, setInfo }) => {
   const router = useRouter();
 
-  const [name, setName] = useState({})
-  console.log("Local Strodge", name)
+  // const [name, setName] = useState({})
+  // console.log("Local Strodge", name)
   const [address, setAddress] = useState();
 
-  console.log('Address', address)
+  // console.log('Address', address)
 
   const getDeliveryUrl = async (e) => {
-
-    e.preventDefault();
-    localStorage.setItem('mainCityName', address);
-    const currentCity = localStorage.getItem('mainCityName');
-    setName(currentCity)
-    const value = currentCity
-    console.log("All Value", value)
-    const cityInfoItems = await fetchAPI("/canada-cities", {
-      filters: {
-        city_ascii: {
-          $contains: value,
+    if(address) {
+      e.preventDefault();
+      console.log("EVENTTTT", address)
+      // const value = toCamelCase(e.target.location.value);
+      // localStorage.setItem('mainCityName', address);
+      // const currentCity = localStorage.getItem('mainCityName');
+      // setName(currentCity)
+      // const value = currentCity
+      // console.log("All Value", value)
+      const cityInfoItems = await fetchAPI("/canada-cities", {
+        filters: {
+          city_ascii: {
+            $contains: address,
+          },
         },
-      },
-      populate: "*",
-    });
-    const cityInfo = cityInfoItems.data[0];
-    if (cityInfo == undefined) {
-      toast('Please type a city name correctly', {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
+        populate: "*",
       });
-    } else {
-      const city = getSlug(cityInfo.attributes.city_ascii);
-      const province_id = cityInfo.attributes.province_id.toLowerCase();
-      const newCityInfo = {
-        province_id: province_id,
-        city: city
-      }
-      setInfo(newCityInfo)
-      // setItems(newCityInfo)
-      if (category !== undefined) {
-        router.push(`/ca/${province_id}/${city}/${category}`);
-        router.reload(window.location.pathname)
+      const cityInfo = cityInfoItems.data[0];
+      console.log("CITY INFO IN LAYOUT", cityInfo)
+      if (cityInfo == undefined) {
+        toast('Please type a city name correctly', {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
       } else {
-        router.push(`/ca/${province_id}/${city}`);
-        router.reload(window.location.pathname)
+        const city = getSlug(cityInfo.attributes.city_ascii);
+        const province_id = cityInfo.attributes.province_id.toLowerCase();
+        const newCityInfo = {
+          province_id: province_id || 'on',
+          city: city || 'toronto'
+        }
+        console.log("NEW CITY INFO", newCityInfo)
+        setInfo(newCityInfo)
+        // setItems(newCityInfo)
+        if (category !== undefined) {
+          router.push(`/ca/${province_id}/${city}/${category}`);
+          // router.reload(window.location.pathname)
+        } else {
+          router.push(`/ca/${province_id}/${city}`);
+          // router.reload(window.location.pathname)
+        }
       }
     }
+    e.preventDefault();
   };
 
   return (
@@ -233,7 +239,9 @@ const Header = ({ category, cityInfo, setInfo }) => {
                           }}
                           options={{
                             types: ["geocode", "establishment",],
-                            // componentRestrictions: { country: "CA" },
+                            // types: ["city"],
+
+                            componentRestrictions: { country: "ca" },
                           }}
 
                         />

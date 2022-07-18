@@ -30,7 +30,7 @@ const ServiceTemplate = ({ category }) => {
   //   setCity(city)
   // })
 
-
+ 
   useEffect(() => {
     (async () => {
       setLoading(true);
@@ -43,6 +43,7 @@ const ServiceTemplate = ({ category }) => {
       if (serviceRes?.data[0]) {
         setCategoryName(serviceRes.data[0]);
         (async () => {
+        
           const url = document.location.toString().split("/");
           const city = toCamelCase(url[url.length - 2]);
           const businessRes = await fetchAPI(`/businesses`, {
@@ -58,7 +59,7 @@ const ServiceTemplate = ({ category }) => {
         })();
       }
     })();
-  }, [])
+  }, [query])
 
 
   const totalStar = 5
