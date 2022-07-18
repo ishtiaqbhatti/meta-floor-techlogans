@@ -6,7 +6,7 @@ export const FlooringProjectData = [
     link: "https://theflooringmetaverse.com/ca/",
     image: "/assets/images/find_flooring_expert.webp",
     title: "Find a Flooring Expert",
-    buttonText: "Learn About Brands",
+    buttonText: "Find a Flooring Expert",
     buttonLink: "https://theflooringmetaverse.com/ca/",
     target: "_blank" | "_self" | "_parent" | "_top"
   },
@@ -15,7 +15,7 @@ export const FlooringProjectData = [
     link: "/blog/blog-category",
     image: "/assets/images/learn_about_flooring.jpg",
     title: "Learn About Flooring    ",
-    buttonText: "Learn About Brands",
+    buttonText: "Learn About Flooring",
     buttonLink: "/blog/blog-category",
     target: "_blank" | "_self" | "_parent" | "_top"
   },
@@ -24,7 +24,7 @@ export const FlooringProjectData = [
     link: "/#",
     image: "/assets/images/view_top_products.jpg",
     title: "View Top Products",
-    buttonText: "Learn About Brands",
+    buttonText: "View Top Products",
     buttonLink: "/#",
     target: "_blank" | "_self" | "_parent" | "_top"
   },

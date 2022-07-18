@@ -19,6 +19,7 @@ import axios from "axios";
 import dateFormat from "dateformat";
 import qs from 'qs';
 import Head from "next/head"
+import { getSlug } from "../../components/utils"
 
 
 // import { DynamicStar } from 'react-dynamic-star';
@@ -175,9 +176,11 @@ const Name = () => {
               </Link>
             </Breadcrumb.Item>
             <Breadcrumb.Item >
-              {/* <Link href=""> */}
-              {business?.attributes?.city}
-              {/* </Link> */}
+              <Link href={`/ca/${business?.attributes?.state?.toLocaleLowerCase().replace(/[^A-Z0-9]+/ig, "-")}/${business?.attributes?.city?.toLocaleLowerCase().replace(/[^A-Z0-9]+/ig, "-")}`}>
+                <a>
+                  {business?.attributes?.city}
+                </a>
+              </Link>
             </Breadcrumb.Item>
             <Breadcrumb.Item >
               {/* <Link href=""> */}
